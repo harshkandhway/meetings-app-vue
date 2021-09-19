@@ -1,28 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <meetings-nav/>
+    <meetings-calendar/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MeetingsNav from './components/MeetingsNav.vue'
+import MeetingsCalendar from './components/MeetingsCalendar.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MeetingsNav,
+    MeetingsCalendar
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Cormorant');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: 'Cormorant', serif;
 }
 </style>
