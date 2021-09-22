@@ -12,26 +12,41 @@
       </div>
       <div class="calendar">
         <div>
-          <div class="calendar-hours" v-for="calendar in 24" :key="calendar">
-            <p>{{calendar}}</p>
+          <div class="calendar-hours" v-for="hour in 24" :key="hour">
+            <p>{{hour}}</p>
           </div>
           
         </div>
-        <div class="meetings-container">
-          <p>Project Kickoff</p>
+        <div class="meetings-container" v-for="meeting in meetings" :key="meeting.id">
+          <p>{{meeting.name}}</p>
           <hr />
-          <p>Attendees : mark@example.com, jane@example.com</p>
+          <p>Attendees : <span v-for="attendee in meeting.attendees" :key="attendee.id">{{attendee.email}}  </span></p>
         </div>
       </div>
     </div>
 </template>
 
 <script>
+import {calendar} from "@/services/calendar.js"
+
 export default {
   name: 'MeetingsCalendar',
+
+  data(){
+    return{
+    meetings: []
+    }
+  },
   // props: {
   //   msg: String
   // }
+  created(){
+    calendar().then(data=>{
+      console.log("CalanerPage",data)
+      this.meetings = data
+      return data
+    });
+  }
 }
 </script>
 
