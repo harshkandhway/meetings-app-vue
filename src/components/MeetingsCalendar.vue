@@ -5,10 +5,11 @@
       <hr />
       <div class="container-date">
         <div>
-          <h2>12 September 2020</h2>
-          <h3>Saturday</h3>
+          <h2>{{date1}}</h2>
+          <h3>{{day}}</h3>
         </div>
-        <input type="date" name="fdate" id="fdate" />
+        <input type="date" name="fdate" id="fdate" v-model="date" v-on:input="calendar(date)"/>
+        <!-- <input type="date" v-model="day" v-on:input="mydate = moment($event.target.value).toDate()"/> -->
       </div>
       <div class="calendar">
         <div>
@@ -28,25 +29,46 @@
 
 <script>
 import {calendar} from "@/services/calendar.js"
+import moment from 'moment';
 
 export default {
   name: 'MeetingsCalendar',
 
   data(){
     return{
-    meetings: []
+    meetings: [],
+    // date: moment().format('Do MMMM YYYY'),
+    date1: moment().format('Do MMMM YYYY'),
+    date: moment().format('YYYY-MM-DD'), 
+    day : moment().format('dddd')
+    }
+  },
+  methods:{
+    calendar(date){
+      this.date1 = date;
+      this.date1 = moment(date).format('Do MMMM YYYY')
+      this.day = moment(date).format('dddd')
+      this.date=date;
+      calendar(this.date).then(data=>{
+      console.log("CalanerPage",data)
+      this.meetings = data
+      return data
+    })
     }
   },
   // props: {
   //   msg: String
   // }
   created(){
-    calendar().then(data=>{
+    console.log(this.date);
+    calendar(this.date).then(data=>{
       console.log("CalanerPage",data)
       this.meetings = data
       return data
-    });
-  }
+    })
+    
+  },
+
 }
 </script>
 

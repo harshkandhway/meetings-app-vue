@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // import AppConfig from '@/config';
 
-axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoMTIzQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjE0NjNjZmQxMzgyMzgwMDE1NmJiMjFlIiwiaWF0IjoxNjMyMjQ4MDI2LCJleHAiOjE2MzIzMzQ0MjZ9.5xVFhaSI1Mls0IQ9cKKCYdWQ4lkcpdfOoFRT9ZHBi6k';
+axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoMTIzQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjE0NjNjZmQxMzgyMzgwMDE1NmJiMjFlIiwiaWF0IjoxNjMyNTYxMDczLCJleHAiOjE2MzI2NDc0NzN9.qiZuGRAUHDn1u2Bv1qoQPKIvFkRqqo735nJePVwsPfY';
 
 
 // const calendar = async () => {
@@ -15,12 +15,13 @@ axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6Ik
 //     }
 // };
 
-function calendar(date){
-    return axios.get(`https://mymeetingsapp.herokuapp.com/api/calendar?date=${date}`)
+function calendar(credendial){
+    console.log(credendial)
+    return axios.get(`https://mymeetingsapp.herokuapp.com/api/calendar?date=${credendial}`)
     .then((res)=>{
-        console.log(res)
+        // console.log(res)
         return res.data
-    })
+    }).catch((error)=>error)
 }
 
 export{

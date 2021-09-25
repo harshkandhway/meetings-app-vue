@@ -1,19 +1,19 @@
 <template>
   <div id="app">
     <meetings-nav/>
-    <meetings-calendar/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import MeetingsNav from './components/MeetingsNav.vue'
-import MeetingsCalendar from './components/MeetingsCalendar.vue'
+
 
 export default {
   name: 'App',
   components: {
     MeetingsNav,
-    MeetingsCalendar,
+    
   }
 }
 </script>

@@ -1,24 +1,63 @@
-// import Router from 'vue-router';
+import Router from 'vue-router';
 
-// import MeetingsCalendar from '@/components/MeetingsCalendar.vue';
-// import MeetingsMeeting from '@/components/MeetingsMeeting.vue';
+import MeetingsCalendar from '@/components/MeetingsCalendar.vue';
+import Teams from '@/components/Teams';
+import Signup from '@/components/Signup';
+import PageNotFound from '@/components/PageNotFound';
+import Meetings from '@/components/Meetings';
+import Login from '@/components/Login';
+import FilterMeetings from '@/components/FilterMeeting';
+//import AddTeam from '@/components/AddTeam';
+import AddMeeting from '@/components/AddMeeting';
 
-// const router = new Router({
-//     mode: 'history',
-//     routes: [
-//         {
-//             name:'MeetingsCalendar',
-//             path: '/',
-//             component: MeetingsCalendar
 
-//         },
-//         {
-//             name:'MeetingsMeeting',
-//             path: '/meetings',
-//             component: MeetingsMeeting
+const router = new Router({
+    mode: 'history',
+    routes: [
+        {
+            name:'MeetingsCalendar',
+            path: '/',
+            component: MeetingsCalendar
 
-//         }
-//     ]
-// });
+        },
+        {
+            name: 'meeting',
+            path : '/meeting',
+            component : Meetings,
+            children: [
+                {
+                    name:'addmeeting',
+                    path: '/meeting/addmeeting',
+                    component: AddMeeting,
+                },
+                {
+                    name:'FilterMeeting',
+                    path:'',
+                    component: FilterMeetings,
+                },
+            ]
+        },
+        {
+            name: 'Teams',
+            path: '/team',
+            component: Teams
+        },
+        {
+            name: 'Login',
+            path: '/login',
+            component: Login
+        },
+        {
+            name: 'Signup',
+            path: '/signup',
+            component: Signup
+        },
+        {
+            name: 'PageNotFound',
+            path: '*',
+            component: PageNotFound
+        }
+    ]
+});
 
-// export default router;
+export default router;

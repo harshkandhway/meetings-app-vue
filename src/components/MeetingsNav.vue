@@ -12,23 +12,23 @@
             <div class="navigation">
                 <div class="nav-menus menu-pages">
                     <ul>
-                        <a href="calendar.html">
+                        <router-link to="/">
                             <div class="menu">
                                 <li>Calendar</li>
                             </div>
-                        </a>
+                        </router-link>
                         <hr class="border-responsive">
-                        <a href="meetings.html">
+                        <router-link to="/meeting">
                             <div class="menu">
                                 <li>Meetings</li>
                             </div>
-                        </a>
+                        </router-link>
                         <hr class="border-responsive">
-                        <a href="teams.html">
+                        <router-link to="/team">
                             <div class="menu">
                                 <li>Teams</li>
                             </div>
-                        </a>
+                        </router-link>
                         <hr class="border-responsive">
                     </ul>
                 </div>
@@ -39,14 +39,14 @@
                             <li>Hello, grdharsh19@gmail.com</li>
                         </div>
                         <hr class="border-responsive">
-                        <a href="index.html">
+                        <router-link to="/login">
                             <div
                                 style="height: 43px; display: inline-flex; flex-direction: column; justify-content: center;">
 
                                 <li>Logout</li>
 
                             </div>
-                        </a>
+                        </router-link>
                     </ul>
                 </div>
             </div>
