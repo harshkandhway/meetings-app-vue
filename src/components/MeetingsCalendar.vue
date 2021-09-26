@@ -9,7 +9,6 @@
           <h3>{{day}}</h3>
         </div>
         <input type="date" name="fdate" id="fdate" v-model="date" v-on:input="calendar(date)"/>
-        <!-- <input type="date" v-model="day" v-on:input="mydate = moment($event.target.value).toDate()"/> -->
       </div>
       <div class="calendar">
         <div>
@@ -37,7 +36,6 @@ export default {
   data(){
     return{
     meetings: [],
-    // date: moment().format('Do MMMM YYYY'),
     date1: moment().format('Do MMMM YYYY'),
     date: moment().format('YYYY-MM-DD'), 
     day : moment().format('dddd')
@@ -50,17 +48,13 @@ export default {
       this.day = moment(date).format('dddd')
       this.date=date;
       calendar(this.date).then(data=>{
-      console.log("CalanerPage",data)
       this.meetings = data
       return data
     })
     }
   },
-  // props: {
-  //   msg: String
-  // }
+
   created(){
-    console.log(this.date);
     calendar(this.date).then(data=>{
       console.log("CalanerPage",data)
       this.meetings = data

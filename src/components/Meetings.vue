@@ -27,6 +27,7 @@
                 </div>
             </div>
             <div class="search-filter" id="search-for-meeting">
+                <form action="">
                 <div class="search-for-meeting">
                     <div class="search-container">
                         <h2>Search for meetings</h2>
@@ -34,53 +35,42 @@
                         <label for="date-selector">
                             <p>Date</p>
                         </label>
-                        <select name="date-selector" id="date-selector1" class="date-selector">
+                        <select name="date-selector" id="date-selector1" class="date-selector" v-model="period">
                             <option value="All">All</option>
-                            <option value="1">Past</option>
-                            <option value="2">Today</option>
-                            <option value="3">Upcoming</option>
+                            <option value="Past">Past</option>
+                            <option value="Today">Today</option>
+                            <option value="Upcoming">Upcoming</option>
                         </select>
                         <label for="search-for">
                             <p>Search for</p>
                         </label>
                         <textarea name="search-for" id="search-for"
-                            placeholder="Search using words which describe the meeting"></textarea>
-                        <input type="button" value="Search" class="fbutton my-m">
+                            placeholder="Search using words which describe the meeting" v-model="search"></textarea>
+                        <input type="button" value="Search" class="fbutton my-m" v-on:click="searched(period)">
                     </div>
                 </div>
+                </form>
+                <div v-if="matching">
                 <h1 style="margin: 0;">Meetings matching search criteria</h1>
                 <hr />
-                <div class="matching">
-                    <div class="matching-container">
-                        <h2 style="margin: 0;">12 September 2020 06:00 - 07:00</h2>
-                        <p style="margin: 10px 0;font-weight: 800;">Project kickoff</p>
+                <div class="matching" v-for="(meeting,index) in meetings" :key="meeting.id">
+                    <div class="matching-container" v-if="temp[index]">
+                        <h2 style="margin: 0;">{{meeting.date}}</h2>
+                        <p style="margin: 10px 0;font-weight: 800;">{{meeting.name}}</p>
                         <input type="button" value="Excuse yourself" class="fbutton my-m"
-                            style="margin: 0;background-color: crimson; border: 1px solid crimson">
+                            style="margin: 0;background-color: crimson; border: 1px solid crimson"
+                            v-on:click="excuse(meeting._id,index)">
                         <hr />
-                        <p style="margin-bottom: 5px;"><b>Attendees</b>: mark@example.com, jane@example.com</p>
+                        <p style="margin-bottom: 5px;"><b>Attendees</b>: <span v-for="attendee in meeting.attendees" :key="attendee.id">{{attendee.email}}  </span></p>
                         <div class="select-member" style="height: 30px; margin: 0;">
                             <input type="text" name="member" id="member" placeholder="Select member"
                                 style="height: inherit; border-radius: 5px; border: 1px solid lightgray;">
                             <button style="height: inherit; border-radius: 5px; outline: none;">Add</button>
                         </div>
                     </div>
+                </div>
                 </div>
 
-                <div class="matching">
-                    <div class="matching-container">
-                        <h2 style="margin: 0;">12 September 2020 09:00 - 10:30</h2>
-                        <p style="margin: 10px 0;font-weight: 800;">Aws architecture</p>
-                        <input type="button" value="Excuse yourself" class="fbutton my-m"
-                            style="margin: 0;background-color: crimson; border: 1px solid crimson">
-                        <hr />
-                        <p style="margin-bottom: 5px;"><b>Attendees</b>: john@example.com, comjane@example.com</p>
-                        <div class="select-member" style="height: 30px; margin: 0;">
-                            <input type="text" name="member" id="member" placeholder="Select member"
-                                style="height: inherit; border-radius: 5px; border: 1px solid lightgray;">
-                            <button style="height: inherit; border-radius: 5px; outline: none;">Add</button>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
@@ -144,14 +134,53 @@
 </template>
 
 <script>
+import axios from "axios"
+import {meetings} from "@/services/meetings.js"
+axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoMTIzQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjE0NjNjZmQxMzgyMzgwMDE1NmJiMjFlIiwiaWF0IjoxNjMyNjU3NTI4LCJleHAiOjE2MzI3NDM5Mjh9.hRBqr6CiN8g8RSSAPQIX-NG7wy19eh992lVQQgkfyzU';
+// import AppConfig from "@/config"
+// axios.defaults.headers.common['Authorization'] = AppConfig.token;
+
 export default {
     data(){
-        
+        return{
+            matching: false,
+            meetings: [],
+            temp:[],
+            period: "All",
+            search: "",
+        }
+    },
+    methods:{
+        searched(period){
+            console.log(period)
+            this.matching= true;
+            meetings(period,this.search).then(data=>{
+            this.meetings = data;
+        })
+        },
+        excuse(id,index){
+            this.temp[index]=false;
+            console.log("temp array",this.temp)
+            return axios.patch(`https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=remove_attendee`)
+            .then((res)=>{
+                console.log("excuse",res.data)
+                this.meetings = res.data;
+                
+            }).catch((error)=>error)
+        }
     },
     created(){
-
+        meetings(this.period,this.search).then(data=>{
+            console.log("meetings page",data)
+            console.log("attendees",data[0].attendees[0])
+            this.meetings = data;
+            let size = this.meetings.length;
+            for(let i=0;i<size;i++)
+            {
+                this.temp.push(true);
+            }
+        })
     }
-    
 }
 </script>
 
