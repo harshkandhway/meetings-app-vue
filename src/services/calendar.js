@@ -22,6 +22,15 @@ function calendar(credendial){
     }).catch((error)=>error)
 }
 
+// async function calendar(credendial){
+//     try {
+//         const res = await axios.get(`https://mymeetingsapp.herokuapp.com/api/calendar?date=${credendial}`);
+//         return res.data;
+//     } catch (error) {
+//         return error;
+//     }
+// }
+
 export{
     calendar
 };

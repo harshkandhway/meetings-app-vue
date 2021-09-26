@@ -32,7 +32,7 @@ const router = new Router({
                 },
                 {
                     name:'FilterMeeting',
-                    path:'',
+                    path:'/meeting/filtermeetings',
                     component: FilterMeetings,
                 },
             ]
