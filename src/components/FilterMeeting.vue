@@ -52,7 +52,9 @@
 <script>
 import axios from "axios"
 import {meetings} from "@/services/meetings.js"
-axios.defaults.headers.common['Authorization'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoMTIzQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjE0NjNjZmQxMzgyMzgwMDE1NmJiMjFlIiwiaWF0IjoxNjMyNjU3NTI4LCJleHAiOjE2MzI3NDM5Mjh9.hRBqr6CiN8g8RSSAPQIX-NG7wy19eh992lVQQgkfyzU';
+import token from '@/config'
+console.log("token",token)
+axios.defaults.headers.common['Authorization'] = token;
 // import AppConfig from "@/config"
 // axios.defaults.headers.common['Authorization'] = AppConfig.token;
 import moment from 'moment'

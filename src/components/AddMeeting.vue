@@ -1,95 +1,130 @@
 <template>
-    <div>
-        <div class="add-new search-for-meeting" id="add-new">
-                <div class="add-new-container search-container">
-                    <h2>Add a new meeting</h2>
-                    <hr />
-                    <label for="date-selector">
-                        <p>Date</p>
-                    </label>
-                    <input type="date" name="dateSelector" id="date-selector2" class="date-selector">
+  <div>
+    <div class="add-new search-for-meeting" id="add-new">
+      <form class="add-new-container search-container" @submit.prevent="postData">
+        <!-- @submit="postData" method="post" -->
+        <h2>Add a new meeting</h2>
+        <hr />
+        <label for="name">
+        <p>Name</p>
+        <input type="text" name="name" id="name" class="date-selector" v-model="form.name"/>
+        </label>
+        <label for="date-selector">
+          <p>Date</p>
+        <input type="date" name="dateSelector" id="date-selector2" class="date-selector" v-model="form.date"/>
+        </label>
 
-                    <p>Start time (hh:mm)</p>
-                    <select name="start-time" id="start-time1" class = "time">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                    <span>:</span>
-                    <select name="start-time" id="start-time2"
-                        class = "time">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
+        <p>Start time (hh:mm)</p>
+        <select name="start-time" id="start-time1" class="time" v-model="form.startTime.hours">
+          <option v-for="hour in 24" :key="hour">{{hour}}</option>
+        </select>
+        <span>:</span>
+        <select name="start-time" id="start-time2" class="time" v-model="form.startTime.minutes">
+          <option v-for="minute in 60" :key="minute">{{minute}}</option>
+        </select>
 
-                    <p>End Time (hh:mm)</p>
-                    <select name="start-time" id="start-time1"
-                        class = "time">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
-                    <span>:</span>
-                    <select name="start-time" id="start-time2"
-                        class = "time">
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                    </select>
+        <p>End Time (hh:mm)</p>
+        <select name="start-time" id="start-time1" class="time" v-model="form.endTime.hours">
+          <option v-for="hour in 24" :key="hour">{{hour}}</option>
+        </select>
+        <span>:</span>
+        <select name="start-time" id="start-time2" class="time" v-model="form.endTime.minutes">
+          <option v-for="minute in 60" :key="minute">{{minute}}</option>
+        </select>
+        <label for="search-for1">
+          <p>Description</p>
+        </label>
+        <textarea name="search-for1" id="search-for1" placeholder="What is the agenda of the meeting?" v-model="form.description"/>
+        <label for="emails">
+          <p>EmailIDs of attendees, or team's short</p>
+        </label>
+        <select name="emails" id="emails" class="emails" placeholder="john@example.com, @annual-day, mark@example.com"
+        v-model="emailId" @change="emailList(emailId)">
+            <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
+        </select>
 
-                    <label for="search-for1">
-                        <p>Description</p>
-                    </label>
-                    <textarea name="search-for1" id="search-for1"
-                        placeholder="What is the agenda of the meeting?"></textarea>
-
-                    <label for="emails">
-                        <p>EmailIDs of attendees, or team's short</p>
-                    </label>
-                    <input type="text" name="emails" id="emails" class="emails"
-                        placeholder="john@example.com, @annual-day, mark@example.com">
-                    <input type="button" value="Add meeting" class="fbutton my-m">
-                </div>
-            </div>
+        <!-- <select name="emails" id="emails" class="emails" placeholder="john@example.com, @annual-day, mark@example.com" 
+        v-for="(attendee,index) in attendees" :key="index" v-model="form.attendees[index].email">
+            <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
+        </select> -->
+        <input type="submit" value="Add meeting" class="fbutton my-m"/>
+      </form>
     </div>
+  </div>
 </template>
 
 <script>
-import {addMeetings} from '@/services/meetings.js'
+import {addMeetings, getUsers } from "@/services/meetings.js";
+// 
+import axios from 'axios'
+import moment from 'moment';
+import token from '@/config' 
+axios.defaults.headers.common['Authorization'] = token;
 export default {
-    data(){
-        return{
+  data() {
+    return {
+      form: {
+        name: "Vue Workshop 16",
+        description: "Web Dev",
+        date: moment().format('YYYY-MM-DD'),
+        startTime: { hours: 10, minutes: 50 },
+        endTime: { hours: 12, minutes: 30},
+        attendees: [
+          {
+            email: "aravind@example.com"
+          },
+          {
+            email: "rupeshranjan123@gmail.com"
+          },
+          {
+            email: "Shashi4@example.com"
+          }
+        ]
+      },
+      registerdUsers: [],
+      emailId: "null"
+    };
+  },
 
-        }
-    },
-
-    created(){
-        addMeetings().then((data)=>{
-        console.log("Add Meetings page",data);
+  methods:{
+    postData(){
+      // this.form.attendees.push({email:'harsh@'})
+      console.log(this.form)
+      addMeetings(this.form).then(data => {
+      console.log("Add Meetings page", data);
     })
-    
-}}
-    
+    },
+    emailList(emailId){
+      this.emailId = emailId;
+      this.form.attendees.push(this.emailId)
+      console.log(this.emailId)
+    }
+  },
+
+  created() {
+    getUsers().then(data=>{
+        this.registerdUsers = data;
+        console.log("reges",this.registerdUsers)
+    })
+  }
+};
 </script>
 
 <style scoped>
-
-.date-selector{
-    border: 1px solid white;
+.date-selector {
+  border: 1px solid white;
 }
-.time{
-    height: 35px; 
-    width: 50px; 
-    font-weight: 800; 
-    font-size: large; 
-    border-radius: 5px;
+.time {
+  height: 35px;
+  width: 50px;
+  font-weight: 800;
+  font-size: large;
+  border-radius: 5px;
 }
-.emails{
-    height: 20px; 
-    width: 100%; 
-    border-radius: 5px;
-    border: 1px solid white;
+.emails {
+  height: 20px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid white;
 }
-
 </style>

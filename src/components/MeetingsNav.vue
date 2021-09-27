@@ -58,9 +58,6 @@
 <script>
 export default {
   name: 'MeetingsNav'
-//   props: {
-//     msg: String
-//   }
 }
 </script>
 
