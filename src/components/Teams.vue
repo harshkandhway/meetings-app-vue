@@ -4,35 +4,16 @@
             <h1>Teams</h1>
             <hr />
             <div class="teams">
-                <div class="team-container">
+                <div class="team-container" v-for="team in teams" :key="team.id">
                     <div class="matching-container">
-                        <h2 style="margin: 0;">Customer acquisition campaign</h2>
-                        <p style="margin: 10px 0;font-weight: 800;">@customer-acquisition</p>
-                        <p>Team to come us with strategies to win over customer customers by end of FY21</p>
-                        <input type="button" value="Excuse yourself" class="fbutton my-m"
-                            style="margin: 0;background-color: crimson; border: 1px solid crimson">
+                        <h2 style="margin: 0;">{{team.name}}</h2>
+                        <p style="margin: 10px 0;font-weight: 800;">@{{team.shortName}}</p>
+                        <p>{{team.description}}</p>
+                        <input type="button" value="Excuse yourself" class="fbutton my-m">
                         <hr />
-                        <p><b>Members</b>: johnk@example.com jane@example.com</p>
+                        <p><b>Members</b>: <span v-for="attendee in team.members" :key="attendee.id">{{attendee.email}}&#32;</span></p>
                         <div class="select-member" style="height: 30px; margin: 0; padding: 5px;">
-                            <input type="number" name="member" id="member" placeholder="Select member"
-                                style="height: inherit; border-radius: 5px; border: 1px solid lightgray;">
-                            <button style="height: inherit; border-radius: 5px;">Add</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="team-container">
-                    <div class="matching-container">
-                        <h2 style="margin: 0;">MERN stack training</h2>
-                        <p style="margin: 10px 0;font-weight: 800;">@mern-stack-training</p>
-                        <p>Group attending Mern stack training for website revamp project</p>
-                        <input type="button" value="Excuse yourself" class="fbutton my-m"
-                            style="margin: 0;background-color: crimson; border: 1px solid crimson">
-                        <hr />
-                        <p><b>Members</b>: jane@example.com mark@example.com</p>
-                        <div class="select-member" style="height: 30px; margin: 0; padding: 5px;">
-                            <input type="number" name="member" id="member" placeholder="Select member"
-                                style="height: inherit; border-radius: 5px; border: 1px solid lightgray;">
+                            <input type="number" name="member" id="member" placeholder="Select member">
                             <button style="height: inherit; border-radius: 5px;">Add</button>
                         </div>
                     </div>
@@ -45,52 +26,26 @@
                     </div>
                 </label>
             </div>
-
-            <!-- <div class="add-team-container" display: none;>
-                <div class="add-new-team" id="add-new" style="position: absolute; top: 0; max-width: 500px;">
-                    <div class="add-new-container search-container">
-                        <h2>Add a new team</h2>
-                        <hr />
-                        <label for="name-selector">
-                            <p>Name of Team</p>
-                        </label>
-                        <input type="text" name="name-selector" id="name-selector" class="date-selector"
-                            style="border: 1px solid white;">
-                        <label for="id-selector">
-                            <p>Team id</p>
-                        </label>
-                        <input type="text" name="id-selector" id="id-selector" class="date-selector"
-                            style="border: 1px solid white;">
-
-                        <label for="search-for">
-                            <p>Description</p>
-                        </label>
-                        <textarea name="search-for" id="search-for"
-                            placeholder="Search using words which describe the meeting"></textarea>
-
-                        <label for="emails">
-                            <p>Members</p>
-                        </label>
-                        <input type="text" name="emails" id="emails" class="date-selector"
-                            style="width: 100%; border-radius: 5px; border: 1px solid white;"
-                            placeholder="john@example.com, @annual-day, mark@example.com">
-                        <input type="button" value="Add" class="fbutton my-m">
-                    </div>
-                    <label for="add-team-overlay">
-                        <div class="cross-button">
-                            <i class="far fa-times-circle"></i>
-                        </div>
-                    </label>
-                </div>
-            </div> -->
-
         </div>
     </div>
 </template>
 
 
 <script>
+import {teams} from '@/services/teams.js'
 export default {
+   data(){
+    return{
+        teams: []
+    }
+
+   },
+   created(){
+       teams().then(data=>{
+           this.teams = data;
+           console.log(data);
+       })
+   }
     
 }
 </script>
@@ -189,6 +144,15 @@ body{
 .fas:hover{
     color: rgb(102, 102, 102);
 }
+
+.fbutton{
+    margin: 0;background-color: crimson; border: 1px solid crimson
+}
+#member{
+    height: inherit; 
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    }
 
 @media(max-width:1000px){
     .teams{

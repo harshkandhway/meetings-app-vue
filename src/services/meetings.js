@@ -18,26 +18,6 @@ function addMeetings(form){
             'Content-Type': 'application/json',
         },
         data: form
-    //     data: `{ "name": ${form.name}, 
-    //     "description": ${form.description}, 
-    //     "date": ${form.date}, 
-    //     "startTime": {"hours": ${form.startTime.hours},"minutes": ${form.startTime.minutes}},
-    //     "endTime": {
-    //         "hours": ${form.endTime.hours},
-    //         "minutes": ${form.endTime.minutes}
-    //     },
-    //     "attendees": [
-    //         {
-    //             "email": "aravind@example.com"
-    //         },
-    //         {
-    //             "email": "rupeshranjan123@gmail.com"
-    //         },
-    //         {
-    //             "email": "Shashi4@example.com"
-    //         }
-    //     ]
-    // }`
     }
     return axios(config).then((res)=>res.data)
     .catch(error=>error)
