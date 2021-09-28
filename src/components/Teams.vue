@@ -4,17 +4,26 @@
             <h1>Teams</h1>
             <hr />
             <div class="teams">
-                <div class="team-container" v-for="team in teams" :key="team.id">
+                <div class="team-container" v-for="(team,index) in teams" :key="index">
                     <div class="matching-container">
                         <h2 style="margin: 0;">{{team.name}}</h2>
                         <p style="margin: 10px 0;font-weight: 800;">@{{team.shortName}}</p>
                         <p>{{team.description}}</p>
-                        <input type="button" value="Excuse yourself" class="fbutton my-m">
+                        <input type="button" value="Excuse yourself" class="fbutton my-m" @click="excuse(team._id)">
                         <hr />
                         <p><b>Members</b>: <span v-for="attendee in team.members" :key="attendee.id">{{attendee.email}}&#32;</span></p>
                         <div class="select-member" style="height: 30px; margin: 0; padding: 5px;">
-                            <input type="number" name="member" id="member" placeholder="Select member">
-                            <button style="height: inherit; border-radius: 5px;">Add</button>
+                            <select
+                                name="member"
+                                id="member"
+                                class="emails"
+                                placeholder="Select member"
+                                v-model="emailId[index]"
+                                @change="emailList(emailId)"
+                            >
+                                <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
+                            </select>
+                            <button class="emails"  @click="addAttendee(team._id,emailList(emailId[index]))">Add</button>
                         </div>
                     </div>
                 </div>
@@ -33,18 +42,81 @@
 
 <script>
 import {teams} from '@/services/teams.js'
+import {getUsers} from '@/services/meetings'
+import axios from 'axios'
 export default {
    data(){
     return{
-        teams: []
+        teams: [],
+        temp:[],
+        registerdUsers:[],
+        emailId: []
     }
-
+   },
+   methods:{
+      excuse(id, index) {
+      this.temp[index] = false;
+      console.log("temp array", this.temp);
+      return axios
+        .patch(
+          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=remove_member`
+        )
+        .then(res1 => {
+          teams().then(data => {
+            this.teams = data;
+            let size = this.teams.length;
+            console.log(res1.data)
+            for (let i = 0; i < size; i++) {
+              this.temp[i] = true;
+            }
+            return data;
+          });
+        })
+        .catch(error => error);
+    },
+    addAttendee(id,userId){
+        console.log("addAttendee meeting id",id)
+        console.log("addAttendee email id",userId)
+        this.emailId1 = this.emailId
+        return axios.patch(`https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`)
+        .then(res=>{
+            console.log(res.data)
+            alert("User Added")
+            teams().then(data=>{
+            this.teams = data;
+            console.log(data);
+            let size = this.teams.length;
+            for (let i = 0; i < size; i++) {
+              this.temp[i] = true;
+            }
+        })
+        })
+        .catch(error => error);
+    },
+     emailList(emailId){
+        console.log("emailList",emailId)
+        for(let i=0;i<this.registerdUsers.length;i++){
+            if(emailId==this.registerdUsers[i].email){
+                let userId = this.registerdUsers[i]._id;
+                console.log("userId (_id)",userId)
+                return userId;
+            }
+        }
+    }
    },
    created(){
        teams().then(data=>{
-           this.teams = data;
-           console.log(data);
-       })
+            this.teams = data;
+            console.log(data);
+            let size = this.teams.length;
+            for (let i = 0; i < size; i++) {
+              this.temp[i] = true;
+            }
+       }),
+        getUsers().then(data => {
+        this.registerdUsers = data;
+        console.log("reges", this.registerdUsers);
+    });
    }
     
 }
@@ -117,7 +189,7 @@ body{
     max-width: 330px;
     justify-content: center;
     align-items: center;
-    min-height: 350px;
+    min-height: 370px;
 }
 
 

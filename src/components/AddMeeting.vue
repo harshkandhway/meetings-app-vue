@@ -38,7 +38,7 @@
         <label for="emails">
           <p>EmailIDs of attendees, or team's short</p>
         </label>
-        <select name="emails" id="emails" class="emails" placeholder="john@example.com, @annual-day, mark@example.com"
+        <select name="emails" id="emails" class="emails"
         v-model="emailId" @change="emailList(emailId)">
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select>
