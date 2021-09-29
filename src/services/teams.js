@@ -9,6 +9,20 @@ function teams(){
     }).catch(error=>error)
 }
 
+function addTeam(form){
+    const config = {
+        method: 'POST',
+        url: 'https://mymeetingsapp.herokuapp.com/api/teams',
+        headers:{
+            'Content-Type': 'application/json',
+        },
+        data: form
+    }
+    return axios(config).then((res)=>res.data)
+    .catch(error=>error)
+}
+
 export{
-    teams
+    teams,
+    addTeam
 }

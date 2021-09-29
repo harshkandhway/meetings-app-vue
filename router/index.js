@@ -7,7 +7,7 @@ import PageNotFound from '@/components/PageNotFound';
 import Meetings from '@/components/Meetings';
 import Login from '@/components/Login';
 import FilterMeetings from '@/components/FilterMeeting';
-//import AddTeam from '@/components/AddTeam';
+import AddTeam from '@/components/AddTeam';
 import AddMeeting from '@/components/AddMeeting';
 
 
@@ -39,8 +39,15 @@ const router = new Router({
         },
         {
             name: 'Teams',
-            path: '/team',
-            component: Teams
+            path: '/teams',
+            component: Teams,
+            children: [
+                {
+                    name:'addteam',
+                    path: '/teams/addteam',
+                    component: AddTeam,
+                }
+            ]
         },
         {
             name: 'Login',

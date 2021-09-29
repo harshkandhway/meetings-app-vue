@@ -24,7 +24,7 @@
                             </div>
                         </router-link>
                         <hr class="border-responsive">
-                        <router-link to="/team">
+                        <router-link to="/teams">
                             <div class="menu">
                                 <li>Teams</li>
                             </div>

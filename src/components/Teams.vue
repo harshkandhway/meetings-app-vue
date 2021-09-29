@@ -27,14 +27,16 @@
                         </div>
                     </div>
                 </div>
-                <label for="add-team-overlay">
                     <div class="team-container">
                         <div class="matching-container">
+                            <router-link to="/teams/addteam" v-on:click="addTeam()">
                             <i class="fas fa-plus fa-2x"></i>
+                            </router-link>
                         </div>
                     </div>
-                </label>
+                
             </div>
+            <router-view v-show="addTeam()"></router-view>
         </div>
     </div>
 </template>
@@ -50,7 +52,8 @@ export default {
         teams: [],
         temp:[],
         registerdUsers:[],
-        emailId: []
+        emailId: [],
+        add: false
     }
    },
    methods:{
@@ -102,6 +105,9 @@ export default {
                 return userId;
             }
         }
+    },
+    addTeam(){
+        return true;
     }
    },
    created(){
@@ -144,29 +150,6 @@ body{
     z-index: 0;
     flex-direction: row;
     
-}
-
-.add-team-container{
-    display: none;
-    position: absolute;
-    width: 100%;
-    top: 80px;
-    margin: auto;
-}
-
-
-.add-new-team{
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: inline-flex;
-    background-color: darkslategrey;
-    height: fit-content;
-    flex-direction: column;
-    margin: auto;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    border-radius: 10px;
 }
 
 .add-team-overlay:checked + .add-team-container{
