@@ -49,8 +49,8 @@
           <input type="submit" value="Add" class="fbutton my-m" />
         </form>
         <label for="add-team-overlay">
-          <div class="cross-button">
-            <i class="far fa-times-circle"></i>
+          <div class="cross-button"  v-on:click="updateTeams()">
+            <router-link :to="{name:'Teams',params:{teamsNew:this.teams}}"><i class="far fa-times-circle"></i></router-link>
           </div>
         </label>
       </div>
@@ -61,6 +61,8 @@
 
 <script>
 // import {addTeam} from '@/components/Teams'
+// import Teams from '@/components/Teams'
+import {teams} from '@/services/teams.js'
 import {addTeam} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
 export default {
@@ -80,9 +82,14 @@ export default {
         ]
       },
       registerdUsers: [],
-      emailId: "null"
+      emailId: "null",
+      teams: []
     };
   },
+ 
+  // components:{
+  //   Teams : Teams
+  // },
   methods: {
       postData(){
       // this.form.attendees.push({email:'harsh@'})
@@ -95,6 +102,12 @@ export default {
       this.emailId = emailId;
       this.form.members.push(this.emailId)
       console.log(this.emailId)
+    },
+    updateTeams(){
+      teams().then(data=>{
+            this.teams = data;
+            console.log(data);
+       })
     }
   },
   created(){

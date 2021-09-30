@@ -19,11 +19,7 @@
             <label for="search-for">
               <p>Search for</p>
             </label>
-            <textarea
-              name="search-for"
-              id="search-for"
-              placeholder="Search using words which describe the meeting"
-              v-model="search"
+            <textarea name="search-for" id="search-for" placeholder="Search using words which describe the meeting" v-model="search"
             ></textarea>
             <input type="button" value="Search" class="fbutton my-m" v-on:click="searched(period)" />
           </div>
@@ -51,14 +47,7 @@
             <div class="select-member" style="height: 30px; margin: 0;">
               <!-- <input type="text" name="member" id="member" placeholder="Select member"
               style="height: inherit; border-radius: 5px; border: 1px solid lightgray;">-->
-              <select
-                name="member"
-                id="member"
-                class="emails"
-                placeholder="Select member"
-                v-model="emailId[index]"
-                @change="emailList(emailId)"
-              >
+              <select name="member" id="member" class="emails" placeholder="Select member" v-model="emailId[index]" @change="emailList(emailId)">
                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
               </select>
               <!-- style="height: inherit; border-radius: 5px; outline: none;" -->
@@ -178,7 +167,6 @@ export default {
         console.log("emailList",emailId)
         for(let i=0;i<this.registerdUsers.length;i++){
             if(emailId==this.registerdUsers[i].email){
-                console.log
                 let userId = this.registerdUsers[i]._id;
                 console.log("userId (_id)",userId)
                 return userId;

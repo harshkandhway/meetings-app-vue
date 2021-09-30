@@ -46,7 +46,7 @@ const router = new Router({
                     name:'addteam',
                     path: '/teams/addteam',
                     component: AddTeam,
-                }
+                },
             ]
         },
         {

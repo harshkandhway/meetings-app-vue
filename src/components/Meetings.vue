@@ -30,7 +30,17 @@
     </div>
 </template>
 
+
 <script>
+// import Meetings from '@/components/FilterMeeting'
+// import { getUsers, meetings } from "@/services/meetings.js";
+export default{
+created(){
+    this.$router.push({
+        name: 'FilterMeeting'
+    })
+}
+}
 
 </script>
 

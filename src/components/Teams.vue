@@ -36,28 +36,43 @@
                     </div>
                 
             </div>
-            <router-view v-show="addTeam()"></router-view>
+            <!-- <AddTeam v-if="add"></AddTeam> -->
+            <router-view v-if="addTeam()"></router-view>
         </div>
     </div>
 </template>
 
 
 <script>
+// import AddTeam from '@/components/AddTeam'
 import {teams} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
 import axios from 'axios'
 export default {
+    name: 'Teams',
+    props:{
+        teamsNew:{
+            type: Array,
+            default:()=>[]
+        }
+    },
+    // components:{
+    //     AddTeam
+    // },
    data(){
     return{
         teams: [],
         temp:[],
         registerdUsers:[],
         emailId: [],
-        add: false
+        add: false,
+        // newUpdate1: 444
     }
    },
    methods:{
       excuse(id, index) {
+        //   this.newUpdate1 = this.newUpdate;
+          console.log("new update true or false",this.teamsNew)
       this.temp[index] = false;
       console.log("temp array", this.temp);
       return axios
@@ -107,7 +122,8 @@ export default {
         }
     },
     addTeam(){
-        return true;
+        this.add = true;
+        return this.add;
     }
    },
    created(){
@@ -122,7 +138,9 @@ export default {
         getUsers().then(data => {
         this.registerdUsers = data;
         console.log("reges", this.registerdUsers);
-    });
+        })
+        
+        // this.add = false;
    }
     
 }
