@@ -3,7 +3,7 @@
     <h2>AddTeam</h2>
     <div class="add-team-container">
       <div class="add-new-team" id="add-new" style="position: absolute; top: 0; max-width: 500px;">
-        <form class="add-new-container search-container" @submit.prevent="postData">
+        <form class="add-new-container search-container" @submit.prevent="updateTeams()">
           <h2>Add a new team</h2>
           <hr />
           <label for="name-selector">
@@ -49,7 +49,8 @@
 
         <span>{{teamsObj}}</span>
 
-          <input type="submit" value="Add" class="fbutton my-m" @click="updateTeams()"/>
+          <input type="submit" value="Add" class="fbutton my-m"/>
+          <!-- " -->
         </form>
         <label for="add-team-overlay">
           <div class="cross-button" >
@@ -101,15 +102,16 @@ export default {
   //   Teams : Teams
   // },
   methods: {
-      postData(){
-      // this.form.attendees.push({email:'harsh@'})
-      console.log(this.form)
-      addTeam(this.form).then(data => {
-      this.form = data
-      alert("team added")
-      console.log("Add Teams Page", data);
-    })
-    },
+    //   postData(){
+    //   // this.form.attendees.push({email:'harsh@'})
+    //   console.log("Add team postData",this.form)
+    //   addTeam(this.form).then(data => {
+    //   // this.form = data
+    //   // alert("team added")
+    //   // this.updateTeams()
+    //   console.log("Add Teams Page", data);
+    // })
+    // },
     emailList(emailId){
       // console.log("printing teamsNew in emailList",this.teamsNew)
       console.log(emailId)
@@ -120,12 +122,20 @@ export default {
       console.log("emailList array",this.form.members)
     },
     updateTeams(){
+      addTeam(this.form).then(data => {
+      // this.form = data
+      // alert("team added")
+      // this.updateTeams()
+      console.log("Add Teams Page", data);
       this.$emit("updateTeams",this.form);
+      alert("team added")
+      this.form.members=[]
       console.log("emit ke baad",this.teamsNew);
+    })
     }
   },
   created(){
-       getUsers().then(data=>{
+        getUsers().then(data=>{
         this.registerdUsers = data;
         // console.log("reges",this.registerdUsers)
     })
