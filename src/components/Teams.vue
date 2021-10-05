@@ -18,59 +18,74 @@
                                 id="member"
                                 class="emails"
                                 placeholder="Select member"
-                                v-model="emailId[index]"
-                                @change="emailList(emailId)"
+                                v-model="emailIdTemp[index]"
+                                
                             >
+                            <!-- @change="emailList(emailIdTemp,index)" -->
                                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
                             </select>
-                            <button class="emails"  @click="addAttendee(team._id,emailList(emailId[index]))">Add</button>
+                            <button class="emails"  @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
                         </div>
                     </div>
                 </div>
                     <div class="team-container">
                         <div class="matching-container">
-                            <router-link to="/teams/addteam" v-on:click="addTeam()">
+                            <router-link :to="{name:'addteam'}" v-on:click="addTeam()">
                             <i class="fas fa-plus fa-2x"></i>
                             </router-link>
                         </div>
                     </div>
                 
             </div>
+            <span>{{teamsObj}}</span>
             <!-- <AddTeam v-if="add"></AddTeam> -->
-            <router-view v-if="addTeam()"></router-view>
+            <router-view :teamsObj="this.teamsObj" @updateTeams="updateTeams($event)"></router-view>
+            <!-- v-if="addTeam()" -->
         </div>
     </div>
 </template>
 
 
 <script>
-// import AddTeam from '@/components/AddTeam'
 import {teams} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
 import axios from 'axios'
 export default {
     name: 'Teams',
-    props:{
-        teamsNew:{
-            type: Array,
-            default:()=>[]
-        }
-    },
-    // components:{
-    //     AddTeam
-    // },
    data(){
     return{
         teams: [],
+        teamsObj: {},
         temp:[],
         registerdUsers:[],
-        emailId: [],
+        emailIdTemp: [],
         add: false,
+        username:''
         // newUpdate1: 444
     }
    },
    methods:{
+       updateTeams(teamsNew){
+        //    console.log("updateTeams in Teams.vue",teamsNew)
+        //    this.teamsObj = teamsNew
+        //    console.log("updateTeams -> this.teamsObj in Teams.vue",this.teamsObj)
+            this.teams.push(teamsNew)
+            // console.log("methods teams data after adding teams",this.teams)
+    //         teams().then(data=>{
+    //         this.teams = data;
+    //         // this.teamsNew = data;
+    //         // console.log("teamsNew",this.teamsNew);
+    //         console.log("created teams data",this.teams)
+    //         let size = this.teams.length;
+    //         for (let i = 0; i < size; i++) {
+    //           this.temp[i] = true;
+    //         }
+    //    })
+    //    this.teamsObj= {}
+        //    console.log("updateTeamsMethod",this.teamsNew)
+       },
       excuse(id, index) {
+          console.log("excuse me teamsNew", this.teamsNew)
         //   this.newUpdate1 = this.newUpdate;
           console.log("new update true or false",this.teamsNew)
       this.temp[index] = false;
@@ -95,26 +110,32 @@ export default {
     addAttendee(id,userId){
         console.log("addAttendee meeting id",id)
         console.log("addAttendee email id",userId)
-        this.emailId1 = this.emailId
+
+        // this.emailId1 = this.emailId
         return axios.patch(`https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`)
         .then(res=>{
             console.log(res.data)
             alert("User Added")
-            teams().then(data=>{
-            this.teams = data;
-            console.log(data);
-            let size = this.teams.length;
-            for (let i = 0; i < size; i++) {
-              this.temp[i] = true;
-            }
-        })
+        //     teams().then(data=>{
+        //     this.teams = data;
+        //     console.log(data);
+        //     let size = this.teams.length;
+        //     for (let i = 0; i < size; i++) {
+        //       this.temp[i] = true;
+        //     }
+        // })
         })
         .catch(error => error);
     },
-     emailList(emailId){
+     emailList(emailId,index){
         console.log("emailList",emailId)
+        console.log("emailListIndex",index)
+        let temp = {
+            email: emailId[index]
+        }
+        this.teams[index].members.push(temp);
         for(let i=0;i<this.registerdUsers.length;i++){
-            if(emailId==this.registerdUsers[i].email){
+            if(emailId[index]==this.registerdUsers[i].email){
                 let userId = this.registerdUsers[i]._id;
                 console.log("userId (_id)",userId)
                 return userId;
@@ -129,7 +150,9 @@ export default {
    created(){
        teams().then(data=>{
             this.teams = data;
-            console.log(data);
+            // this.teamsNew = data;
+            // console.log("teamsNew",this.teamsNew);
+            console.log("created teams data",this.teams)
             let size = this.teams.length;
             for (let i = 0; i < size; i++) {
               this.temp[i] = true;
@@ -137,7 +160,8 @@ export default {
        }),
         getUsers().then(data => {
         this.registerdUsers = data;
-        console.log("reges", this.registerdUsers);
+
+        // console.log("reges", this.registerdUsers);
         })
         
         // this.add = false;

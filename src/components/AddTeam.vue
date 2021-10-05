@@ -46,11 +46,14 @@
         v-model="emailId" @change="emailList(emailId)">
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select>
-          <input type="submit" value="Add" class="fbutton my-m" />
+
+        <span>{{teamsObj}}</span>
+
+          <input type="submit" value="Add" class="fbutton my-m" @click="updateTeams()"/>
         </form>
         <label for="add-team-overlay">
-          <div class="cross-button"  v-on:click="updateTeams()">
-            <router-link :to="{name:'Teams',params:{teamsNew:this.teams}}"><i class="far fa-times-circle"></i></router-link>
+          <div class="cross-button" >
+            <router-link :to="{name:'Teams'}"><i class="far fa-times-circle"></i></router-link>
           </div>
         </label>
       </div>
@@ -62,28 +65,35 @@
 <script>
 // import {addTeam} from '@/components/Teams'
 // import Teams from '@/components/Teams'
-import {teams} from '@/services/teams.js'
+// import {teams} from '@/services/teams.js'
 import {addTeam} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
 export default {
+  // props:{
+  //   teamsNew:Array
+  // },
+  name:"AddTeam",
+  props:{
+        teamsNew:{
+            type: String,
+        },
+        teamsObj:{
+          type:Object,
+          
+        },
+    },
   data() {
     return {
       form: {
         name: "Test 2",
         shortName: "test 2",
         description: "hello world 2",
-        members: [
-          {
-            email: "john.doe@example.com"
-          },
-          {
-            email: "jane.doe@example.com"
-          }
-        ]
+        members: []
       },
       registerdUsers: [],
       emailId: "null",
-      teams: []
+      // teams: []
+      // teamsNew: ""
     };
   },
  
@@ -95,25 +105,29 @@ export default {
       // this.form.attendees.push({email:'harsh@'})
       console.log(this.form)
       addTeam(this.form).then(data => {
+      this.form = data
+      alert("team added")
       console.log("Add Teams Page", data);
     })
     },
     emailList(emailId){
-      this.emailId = emailId;
-      this.form.members.push(this.emailId)
-      console.log(this.emailId)
+      // console.log("printing teamsNew in emailList",this.teamsNew)
+      console.log(emailId)
+      let emailObj ={
+        email: emailId
+      }
+      this.form.members.push(emailObj)
+      console.log("emailList array",this.form.members)
     },
     updateTeams(){
-      teams().then(data=>{
-            this.teams = data;
-            console.log(data);
-       })
+      this.$emit("updateTeams",this.form);
+      console.log("emit ke baad",this.teamsNew);
     }
   },
   created(){
        getUsers().then(data=>{
         this.registerdUsers = data;
-        console.log("reges",this.registerdUsers)
+        // console.log("reges",this.registerdUsers)
     })
   }
 };

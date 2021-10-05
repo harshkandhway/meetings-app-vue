@@ -135,9 +135,9 @@ export default {
         .catch(error => error);
     },
     addAttendee(id,userId){
-        console.log("addAttendee meeting id",id)
-        console.log("addAttendee email id",userId)
-        this.emailId1 = this.emailId
+        // console.log("addAttendee meeting id",id)
+        // console.log("addAttendee email id",userId)
+        // this.emailId1 = this.emailId
         return axios.patch(`https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=add_attendee&userId=${userId}`)
         .then(res=>{
             console.log(res.data)

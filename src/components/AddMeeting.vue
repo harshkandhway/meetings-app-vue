@@ -40,6 +40,7 @@
         </label>
         <select name="emails" id="emails" class="emails"
         v-model="emailId" @change="emailList(emailId)">
+            <!-- <option value="---Select Attendees---" selected>---Select Attendees---</option> -->
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select>
 
@@ -47,6 +48,9 @@
         v-for="(attendee,index) in attendees" :key="index" v-model="form.attendees[index].email">
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select> -->
+        <div class="emails-overlay">
+        <span class="overlay" v-for="(attendee,index) in form.attendees" :key="index">{{form.attendees[index]}} &#32;</span>
+        </div>
         <input type="submit" value="Add meeting" class="fbutton my-m"/>
       </form>
     </div>
@@ -69,20 +73,10 @@ export default {
         date: moment().format('YYYY-MM-DD'),
         startTime: { hours: 10, minutes: 50 },
         endTime: { hours: 12, minutes: 30},
-        attendees: [
-          {
-            email: "aravind@example.com"
-          },
-          {
-            email: "rupeshranjan123@gmail.com"
-          },
-          {
-            email: "Shashi4@example.com"
-          }
-        ]
+        attendees: []
       },
       registerdUsers: [],
-      emailId: "null"
+      emailId: "---Select Attendees---"
     };
   },
 
@@ -91,7 +85,9 @@ export default {
       // this.form.attendees.push({email:'harsh@'})
       console.log(this.form)
       addMeetings(this.form).then(data => {
+        alert("Meeting Added, Thank You!")
       console.log("Add Meetings page", data);
+      this.form.attendees=[]
     })
     },
     emailList(emailId){
@@ -122,9 +118,22 @@ export default {
   border-radius: 5px;
 }
 .emails {
-  height: 20px;
+  height: 30px;
   width: 100%;
   border-radius: 5px;
   border: 1px solid white;
+}
+
+.emails-overlay{
+  
+  margin: 20px 0 0 0; 
+  
+}
+.overlay{
+  margin: 20px 10px 0 0; 
+  padding: 5px;
+  color: black;
+  border-radius: 10px;
+  background: white;
 }
 </style>
