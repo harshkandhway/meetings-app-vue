@@ -57,7 +57,13 @@
 
 <script>
 export default {
-  name: 'MeetingsNav'
+  name: 'MeetingsNav',
+//   props:{
+//       authenticated:{
+//           type: Boolean
+//       }
+//   }
+  
 }
 </script>
 

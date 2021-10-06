@@ -1,18 +1,12 @@
 import axios from 'axios';
 import AppConfig from '@/config' 
+// import { config } from 'vue/types/umd';
 axios.defaults.headers.common['Authorization'] = AppConfig.token;
 
-function teams(){
-    return axios.get(`https://mymeetingsapp.herokuapp.com/api/teams`)
-    .then(res=>{
-        return res.data;
-    }).catch(error=>error)
-}
-
-function addTeam(form){
+function login(form){
     const config = {
         method: 'POST',
-        url: 'https://mymeetingsapp.herokuapp.com/api/teams',
+        url: 'https://mymeetingsapp.herokuapp.com/api/auth/login',
         headers:{
             'Content-Type': 'application/json',
         },
@@ -22,7 +16,8 @@ function addTeam(form){
     .catch(error=>error)
 }
 
+
+
 export{
-    teams,
-    addTeam
+    login,
 }

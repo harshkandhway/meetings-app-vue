@@ -60,10 +60,10 @@
 <script>
 import {addMeetings, getUsers } from "@/services/meetings.js";
 // 
-import axios from 'axios'
+// import axios from 'axios'
 import moment from 'moment';
-import token from '@/config' 
-axios.defaults.headers.common['Authorization'] = token;
+// import AppConfig from '@/config' 
+// axios.defaults.headers.common['Authorization'] = AppConfig.token;
 export default {
   data() {
     return {

@@ -63,9 +63,9 @@
 <script>
 import axios from "axios";
 import { getUsers, meetings } from "@/services/meetings.js";
-import token from "@/config";
-console.log("token", token);
-axios.defaults.headers.common["Authorization"] = token;
+import AppConfig from "@/config";
+console.log("token", AppConfig.token);
+axios.defaults.headers.common["Authorization"] = AppConfig.token;
 // import AppConfig from "@/config"
 // axios.defaults.headers.common['Authorization'] = AppConfig.token;
 import moment from "moment";

@@ -75,9 +75,9 @@ export default {
   // },
   name:"AddTeam",
   props:{
-        teamsNew:{
-            type: String,
-        },
+        // teamsNew:{
+        //     type: String,
+        // },
         teamsObj:{
           type:Object,
           

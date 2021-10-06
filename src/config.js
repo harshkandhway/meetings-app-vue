@@ -1,2 +1,5 @@
-let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoMTIzQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjE0NjNjZmQxMzgyMzgwMDE1NmJiMjFlIiwiaWF0IjoxNjMzNDAwNjA2LCJleHAiOjE2MzM0ODcwMDZ9.SdBWBaIphKRFw2qHpB0zodseD8kpFjdNvi2C4RQtSmY';
-export default token;
+const AppConfig = {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhcnNoMTIzQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjE0NjNjZmQxMzgyMzgwMDE1NmJiMjFlIiwiaWF0IjoxNjMzNDAwNjA2LCJleHAiOjE2MzM0ODcwMDZ9.SdBWBaIphKRFw2qHpB0zodseD8kpFjdNvi2C4RQtSmY'
+}
+
+export default AppConfig;

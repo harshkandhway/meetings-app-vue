@@ -1,6 +1,6 @@
 import axios  from "axios";
-import token from '@/config' 
-axios.defaults.headers.common['Authorization'] = token;
+import AppConfig from '@/config' 
+axios.defaults.headers.common['Authorization'] = AppConfig.token;
 
 function meetings(period,search){
     return axios.get(`https://mymeetingsapp.herokuapp.com/api/meetings?period=${period}&search=${search}`)
@@ -10,6 +10,22 @@ function meetings(period,search){
     }).catch(error=>error)
 }
 
+// async function addMeetings(form){
+//     const config = {
+//         method: 'POST',
+//         url: 'https://mymeetingsapp.herokuapp.com/api/meetings',
+//         headers:{
+//             'Content-Type': 'application/json',
+//         },
+//         data: form
+//     }
+//     try {
+//         const res = await axios(config);
+//         return res.data;
+//     } catch (error) {
+//         return error;
+//     }
+// }
 function addMeetings(form){
     const config = {
         method: 'POST',

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import token from '@/config' 
-axios.defaults.headers.common['Authorization'] = token;
+import AppConfig from '@/config' 
+axios.defaults.headers.common['Authorization'] = AppConfig.token;
 
 // const calendar = async () => {
 //     try{
@@ -18,6 +18,7 @@ function calendar(credendial){
         return res.data
     }).catch((error)=>error)
 }
+
 
 // async function calendar(credendial){
 //     try {

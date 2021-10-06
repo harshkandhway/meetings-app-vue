@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import {calendar} from "@/services/calendar.js"
+import {calendar} from "@/services/calendar.js";
+// import {login} from "@/services/LoginRequest.js";
 import moment from 'moment';
 
 export default {
