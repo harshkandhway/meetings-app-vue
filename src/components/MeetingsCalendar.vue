@@ -12,8 +12,8 @@
       </div>
       <div class="calendar">
         <div>
-          <div class="calendar-hours" v-for="hour in 24" :key="hour">
-            <p>{{hour}}</p>
+          <div class="calendar-hours" v-for="(hour,index) in 24" :key="index">
+            <p>{{index}}</p>
           </div>
           
         </div>

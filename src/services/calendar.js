@@ -1,6 +1,8 @@
 import axios from 'axios';
-import AppConfig from '@/config' 
-axios.defaults.headers.common['Authorization'] = AppConfig.token;
+// import AppConfig from '@/config' 
+axios.defaults.headers['Authorization'] = localStorage.getItem('AppConfig.token');
+
+// localStorage.setItem('AppConfig.token',AppConfig.token)
 
 // const calendar = async () => {
 //     try{
@@ -13,8 +15,10 @@ axios.defaults.headers.common['Authorization'] = AppConfig.token;
 // };
 
 function calendar(credendial){
+    // console.log(AppConfig.token)
     return axios.get(`https://mymeetingsapp.herokuapp.com/api/calendar?date=${credendial}`)
     .then((res)=>{
+        
         return res.data
     }).catch((error)=>error)
 }

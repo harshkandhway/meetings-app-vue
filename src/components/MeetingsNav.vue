@@ -39,7 +39,7 @@
                             <li>Hello, grdharsh19@gmail.com</li>
                         </div>
                         <hr class="border-responsive">
-                        <router-link to="/login">
+                        <router-link to="/login" @click="logOut">
                             <div
                                 style="height: 43px; display: inline-flex; flex-direction: column; justify-content: center;">
 
@@ -58,6 +58,12 @@
 <script>
 export default {
   name: 'MeetingsNav',
+
+  methods:{
+      logOut(){
+          localStorage.removeItem('AppConfig.token')
+      }
+  }
 //   props:{
 //       authenticated:{
 //           type: Boolean

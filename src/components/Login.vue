@@ -6,8 +6,8 @@
             <h1>Sign in</h1>
             <div class="sign-in-form">
                 <form @submit.prevent="signIn">
-                    <input type="email" name="femail" id="femail" placeholder="Email" class="fdetail" v-model="form.email">
-                    <input type="password" name="fpassword" id="fpassword" placeholder="Password" class="fdetail" v-model="form.password">
+                    <input type="email" name="femail" id="femail" placeholder="Email" class="fdetail" v-model="form.email" autocomplete="on">
+                    <input type="password" name="fpassword" id="fpassword" placeholder="Password" class="fdetail" v-model="form.password" autocomplete="on">
                     <a href="#" class="forget-pass my-s">Forgot your password ?</a>
                     <input type="submit" value="SIGN IN" class="fbutton my-m">
                 </form>
@@ -20,8 +20,8 @@
                 <form action="#">
                     <input type="text" name="fname" placeholder="Name" class="fdetail">
                     <input type="email" name="femail" class="fdetail" placeholder="Email">
-                    <input type="password" name="fpassword" class="fdetail" placeholder="Password">
-                    <input type="password" name="fconfirm" class="fdetail" placeholder="Confirm Password">
+                    <input type="password" name="fpassword" class="fdetail" placeholder="Password" autocomplete="on">
+                    <input type="password" name="fconfirm" class="fdetail" placeholder="Confirm Password" autocomplete="on">
                     <a href="#" class="forget-pass my-m">Forgot your password</a>
                     <input type="button" value="SIGN UP" class="fbutton my-m">
                 </form>
@@ -46,7 +46,8 @@
 
 <script>
 import {login} from "@/services/LoginRequest.js"
-import AppConfig from "@/config.js"
+// import AppConfig from "@/config.js"
+// import {AppConf} from "@/config.js"
 export default {
     data(){
         return{
@@ -55,7 +56,8 @@ export default {
                 email: "",
                 password: ""
             },
-            token: AppConfig.token
+            token: '',
+            formIsValid: true
         }
     },
 
@@ -65,12 +67,21 @@ export default {
             return this.authenticated
         },
         signIn(){
+            this.formIsValid = true;
+            if(this.email === ''|| !this.email.includes('@')||this.password.length<8){
+                this.formIsValid=false;
+                return
+            }
             login(this.form).then(data=>{
-                console.log(data)
-                 this.token = data.token
-                 AppConfig.token = data.token
-                 console.log(AppConfig.token)
-            })
+                 this.token = data.token;
+                    console.log("token inside login method",this.token)
+                    localStorage.setItem('AppConfig.token',this.token)
+                    this.$router.push({name:"MeetingsCalendar"})
+                    // localStorage.removeItem('AppConfig.token')
+                    // AppConf(this.token)
+                //  console.log(AppConfig.token)
+            }).catch(error=>error)
+            
 
         }
     }

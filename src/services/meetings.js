@@ -1,6 +1,7 @@
 import axios  from "axios";
-import AppConfig from '@/config' 
-axios.defaults.headers.common['Authorization'] = AppConfig.token;
+// import AppConfig from '@/config' 
+// axios.defaults.headers.common['Authorization'] = localStorage.getItem('AppConfig.token')
+
 
 function meetings(period,search){
     return axios.get(`https://mymeetingsapp.herokuapp.com/api/meetings?period=${period}&search=${search}`)
@@ -32,6 +33,7 @@ function addMeetings(form){
         url: 'https://mymeetingsapp.herokuapp.com/api/meetings',
         headers:{
             'Content-Type': 'application/json',
+            // 'Authorization' : localStorage.getItem('AppConfig.token')
         },
         data: form
     }
