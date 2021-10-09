@@ -1,6 +1,6 @@
 import axios from 'axios';
-// import AppConfig from '@/config' 
-axios.defaults.headers['Authorization'] = localStorage.getItem('AppConfig.token');
+// // import AppConfig from '@/config' 
+// axios.defaults.headers['Authorization'] = localStorage.getItem('AppConfig.token');
 
 // localStorage.setItem('AppConfig.token',AppConfig.token)
 
@@ -16,7 +16,10 @@ axios.defaults.headers['Authorization'] = localStorage.getItem('AppConfig.token'
 
 function calendar(credendial){
     // console.log(AppConfig.token)
-    return axios.get(`https://mymeetingsapp.herokuapp.com/api/calendar?date=${credendial}`)
+    return axios.get(`https://mymeetingsapp.herokuapp.com/api/calendar?date=${credendial}`,{headers:{
+        'Content-Type': 'application/json',
+        'Authorization' : localStorage.getItem('token')
+    }})
     .then((res)=>{
         
         return res.data

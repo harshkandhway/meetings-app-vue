@@ -12,7 +12,7 @@
             <div class="navigation">
                 <div class="nav-menus menu-pages">
                     <ul>
-                        <router-link to="/">
+                        <router-link to='/calendar'>
                             <div class="menu">
                                 <li>Calendar</li>
                             </div>
@@ -39,14 +39,14 @@
                             <li>Hello, grdharsh19@gmail.com</li>
                         </div>
                         <hr class="border-responsive">
-                        <router-link to="/login" @click="logOut">
+                        <span @click="logOut">
                             <div
                                 style="height: 43px; display: inline-flex; flex-direction: column; justify-content: center;">
 
                                 <li>Logout</li>
 
                             </div>
-                        </router-link>
+                        </span>
                     </ul>
                 </div>
             </div>
@@ -61,7 +61,9 @@ export default {
 
   methods:{
       logOut(){
-          localStorage.removeItem('AppConfig.token')
+          this.$store.dispatch('logout')
+          .then(()=>this.$router.push({name:'Login'}))
+          
       }
   }
 //   props:{

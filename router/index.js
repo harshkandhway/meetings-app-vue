@@ -16,7 +16,7 @@ const router = new Router({
     routes: [
         {
             name:'MeetingsCalendar',
-            path: '/',
+            path: '/calendar',
             component: MeetingsCalendar
 
         },
@@ -51,7 +51,7 @@ const router = new Router({
         },
         {
             name: 'Login',
-            path: '/login',
+            path: '/',
             component: Login
         },
         {

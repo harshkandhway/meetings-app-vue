@@ -20,7 +20,7 @@
               <b>Members</b>:
               <span v-for="attendee in team.members" :key="attendee.id">{{attendee.email}}&#32;</span>
             </p>
-            <div class="select-member" style="height: 30px; margin: 0; padding: 5px;">
+            <div class="select-member">
               <select
                 name="member"
                 id="member"
@@ -102,7 +102,9 @@ export default {
       console.log("temp array", this.temp);
       return axios
         .patch(
-          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=remove_member`
+          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=remove_member`,null,{headers:{
+        'Authorization' : localStorage.getItem('token')
+    }}
         )
         .then(res1 => {
           teams().then(data => {
@@ -124,7 +126,10 @@ export default {
       // this.emailId1 = this.emailId
       return axios
         .patch(
-          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`
+          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`,{headers:{
+        'Content-Type': 'application/json',
+        'Authorization' : localStorage.getItem('token')
+    }}
         )
         .then(res => {
           console.log(res.data);
@@ -196,6 +201,21 @@ body {
   z-index: 0;
 }
 
+.select-member{
+  height: 30px; 
+  margin: 0; 
+  padding: 5px;
+  display: inline-flex;
+  justify-content: start;
+  
+}
+.emails{
+  height: inherit; 
+  border-radius: 5px; 
+  border: 1px solid lightgray;
+  
+}
+
 .teams {
   display: flex;
   justify-content: center;
@@ -220,8 +240,8 @@ body {
   /* margin-bottom: 10px; */
   flex-basis: 32%;
   margin: 20px;
-  min-width: 330px;
-  max-width: 330px;
+  min-width: 370px;
+  max-width: 370px;
   justify-content: center;
   align-items: center;
   min-height: 370px;
@@ -260,6 +280,8 @@ body {
   border-radius: 5px;
   border: 1px solid lightgray;
 }
+
+
 
 @media (max-width: 1000px) {
   .teams {

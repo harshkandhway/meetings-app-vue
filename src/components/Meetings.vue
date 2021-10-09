@@ -185,8 +185,8 @@ textarea {
 
 .fbutton {
   border-radius: 5px;
-  border: 1px solid teal;
-  background-color: teal;
+  border: 1px solid crimson;
+  background-color: crimson;
   font-weight: 500;
   padding: 8px 13px;
   font-size: large;
@@ -195,11 +195,11 @@ textarea {
 }
 
 .fbutton:hover {
-  background-color: rgb(0, 90, 90);
+  background-color: rgb(255, 29, 74);
 }
 
 .fbutton:active {
-  background-color: rgb(0, 179, 179);
+  background-color: rgb(161, 18, 47);
 }
 
 .search-container-visibility:checked + .search-for-meeting {

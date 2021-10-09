@@ -36,9 +36,10 @@
               type="button"
               value="Excuse yourself"
               class="fbutton my-m"
-              style="margin: 0;background-color: crimson; border: 1px solid crimson"
+              
               v-on:click="excuse(meeting._id,index)"
             />
+            <!-- style="margin: 0;background-color: crimson; border: 1px solid crimson" -->
             <hr />
             <p style="margin-bottom: 5px;">
               <b>Attendees</b>:
@@ -63,9 +64,9 @@
 <script>
 import axios from "axios";
 import { getUsers, meetings } from "@/services/meetings.js";
-import AppConfig from "@/config";
-console.log("token", AppConfig.token);
-axios.defaults.headers.common["Authorization"] = AppConfig.token;
+// import AppConfig from "@/config";
+// console.log("token", AppConfig.token);
+// axios.defaults.headers.common["Authorization"] = AppConfig.token;
 // import AppConfig from "@/config"
 // axios.defaults.headers.common['Authorization'] = AppConfig.token;
 import moment from "moment";
@@ -109,7 +110,9 @@ export default {
       console.log("temp array", this.temp);
       return axios
         .patch(
-          `https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=remove_attendee`
+          `https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=remove_attendee`,null,{headers:{
+        'Authorization' : localStorage.getItem('token')
+    }}
         )
         .then(res1 => {
           meetings(this.period, this.search).then(data => {
@@ -138,7 +141,9 @@ export default {
         // console.log("addAttendee meeting id",id)
         // console.log("addAttendee email id",userId)
         // this.emailId1 = this.emailId
-        return axios.patch(`https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=add_attendee&userId=${userId}`)
+        return axios.patch(`https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=add_attendee&userId=${userId}`,null,{headers:{
+        'Authorization' : localStorage.getItem('token')
+    }})
         .then(res=>{
             console.log(res.data)
             alert("User Added")

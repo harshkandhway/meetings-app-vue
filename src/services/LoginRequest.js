@@ -3,14 +3,14 @@ import axios from 'axios';
 // import { config } from 'vue/types/umd';
 // axios.defaults.headers.common['Authorization'] = AppConfig.token;
 
-function login(form){
+function login(credentials){
     const config = {
         method: 'POST',
         url: 'https://mymeetingsapp.herokuapp.com/api/auth/login',
         headers:{
             'Content-Type': 'application/json',
         },
-        data: form
+        data: credentials
     }
     return axios(config).then((res)=>res.data)
     .catch(error=>error)

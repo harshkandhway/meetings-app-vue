@@ -69,6 +69,7 @@
 // import {teams} from '@/services/teams.js'
 import {addTeam} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
+// import VueToast from 'vue-toast-notification';
 export default {
   // props:{
   //   teamsNew:Array
@@ -128,9 +129,9 @@ export default {
       // this.updateTeams()
       console.log("Add Teams Page", data);
       this.$emit("updateTeams",this.form);
-      alert("team added")
+      // app.$toast.open('You did it!');
       this.form.members=[]
-      console.log("emit ke baad",this.teamsNew);
+      console.log(this.teamsNew);
     })
     }
   },

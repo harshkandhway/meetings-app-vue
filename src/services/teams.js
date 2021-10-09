@@ -3,7 +3,10 @@ import axios from 'axios';
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('AppConfig.token')
 
 function teams(){
-    return axios.get(`https://mymeetingsapp.herokuapp.com/api/teams`)
+    return axios.get(`https://mymeetingsapp.herokuapp.com/api/teams`,{headers:{
+        'Content-Type': 'application/json',
+        'Authorization' : localStorage.getItem('token')
+    }})
     .then(res=>{
         return res.data;
     }).catch(error=>error)
@@ -15,6 +18,7 @@ function addTeam(form){
         url: 'https://mymeetingsapp.herokuapp.com/api/teams',
         headers:{
             'Content-Type': 'application/json',
+            'Authorization' : localStorage.getItem('token')
         },
         data: form
     }

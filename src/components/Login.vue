@@ -45,7 +45,7 @@
 
 
 <script>
-import {login} from "@/services/LoginRequest.js"
+// import {login} from "@/services/LoginRequest.js"
 // import AppConfig from "@/config.js"
 // import {AppConf} from "@/config.js"
 export default {
@@ -56,8 +56,8 @@ export default {
                 email: "",
                 password: ""
             },
-            token: '',
-            formIsValid: true
+            // token: '',
+            // formIsValid: true
         }
     },
 
@@ -67,27 +67,14 @@ export default {
             return this.authenticated
         },
         signIn(){
-            this.formIsValid = true;
-            if(this.email === ''|| !this.email.includes('@')||this.password.length<8){
-                this.formIsValid=false;
-                return
+            this.$store.dispatch('login',this.form)
+                .then(()=>this.$router.push({name:'MeetingsCalendar'}))
+                .catch(error=>{alert(error.message)})
             }
-            login(this.form).then(data=>{
-                 this.token = data.token;
-                    console.log("token inside login method",this.token)
-                    localStorage.setItem('AppConfig.token',this.token)
-                    this.$router.push({name:"MeetingsCalendar"})
-                    // localStorage.removeItem('AppConfig.token')
-                    // AppConf(this.token)
-                //  console.log(AppConfig.token)
-            }).catch(error=>error)
             
 
         }
     }
-    
-    
-}
 </script>
 
 <style scoped>
