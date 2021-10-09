@@ -16,6 +16,16 @@ function login(credentials){
     .catch(error=>error)
 }
 
+function signUp(credentials){
+    const config={
+        method: 'POST',
+        url: 'https://mymeetingsapp.herokuapp.com/api/auth/register',
+        data: credentials
+    }
+    return axios(config).then(res=>res.data)
+    .catch(error=>error)
+}
+
 export{
-    login,
+    login,signUp
 }
