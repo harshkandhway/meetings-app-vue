@@ -15,6 +15,7 @@
             id="name-selector"
             class="date-selector"
             style="border: 1px solid white;"
+            placeholder="Name"
             v-model="form.name"
           />
           <label for="id-selector">
@@ -26,6 +27,7 @@
             id="id-selector"
             class="date-selector"
             style="border: 1px solid white;"
+            placeholder="id"
             v-model="form.shortName"
           />
 
@@ -35,26 +37,27 @@
           <textarea
             name="search-for"
             id="search-for"
-            placeholder="Search using words which describe the meeting"
+            placeholder="Add a Description for the Teams"
             v-model="form.description"
           ></textarea>
 
           <label for="emails">
             <p>Members</p>
           </label>
-          <select name="emails" id="emails" class="date-selector"
+          <select name="emails" id="emails" class="date-selector" style="margin-bottom:5px"
         v-model="emailId" @change="emailList(emailId)">
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select>
-
-        <span>{{teamsObj}}</span>
-
-          <input type="submit" value="Add" class="fbutton my-m"/>
-          <!-- " -->
+        <div class="emails-overlay">
+        <span class="overlay" v-for="(attendee,index) in form.members" :key="index">{{form.members[index].email}} &#32;</span>
+        </div>
+          <div style="margin-top:5px">
+          <input type="submit" value="Add Team" class="fbutton my-m"/>
+          </div>
         </form>
         <label for="add-team-overlay">
           <div class="cross-button" >
-            <router-link :to="{name:'Teams'}"><i class="far fa-times-circle"></i></router-link>
+            <router-link :to="{name:'Teams'}"><i class="far fa-times-circle cross-button"></i></router-link>
           </div>
         </label>
       </div>
@@ -87,9 +90,9 @@ export default {
   data() {
     return {
       form: {
-        name: "Test 2",
-        shortName: "test 2",
-        description: "hello world 2",
+        name: "",
+        shortName: "",
+        description: "",
         members: []
       },
       registerdUsers: [],
@@ -155,6 +158,21 @@ export default {
     width: 100%; border-radius: 5px; border: 1px solid white;
 }
 
+.emails-overlay{
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 20px 0; 
+  
+}
+.overlay{
+  margin: 10px 10px 0 0; 
+  padding: 5px;
+  color: black;
+  border-radius: 10px;
+  background: white;
+}
+
 .add-new-team {
   position: relative;
   top: 0;
@@ -173,15 +191,14 @@ export default {
   top: 0;
   right: 0;
   margin: 10px 10px 0 0;
-  color: white;
+  color: rgb(160, 226, 226)
 }
-
 .cross-button:hover {
-  color: teal;
+  color: rgb(0, 189, 189);
 }
 
 .cross-button:active {
-  color: rgb(0, 241, 241);
+  color: rgb(255, 255, 255);
 }
 
 .fas {
@@ -193,8 +210,21 @@ export default {
 
 .fbutton {
   margin: 0;
-  background-color: crimson;
-  border: 1px solid crimson;
+  background-color: teal;
+  border: 1px solid teal;
+  cursor: pointer;
+}
+
+.fbutton:hover {
+ 
+  background-color: rgb(0, 172, 172);
+  border: 1px solid rgb(0, 172, 172);
+}
+
+.fbutton:active {
+ 
+  background-color: rgb(0, 117, 117);
+  border: 1px solid rgb(0, 117, 117);
 }
 
 @media (max-width: 767px) {

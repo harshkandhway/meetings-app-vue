@@ -51,7 +51,9 @@
         <div class="emails-overlay">
         <span class="overlay" v-for="(attendee,index) in form.attendees" :key="index">{{form.attendees[index]}} &#32;</span>
         </div>
+        <div>
         <input type="submit" value="Add meeting" class="fbutton my-m"/>
+        </div>
       </form>
     </div>
   </div>
@@ -125,15 +127,18 @@ export default {
 }
 
 .emails-overlay{
-  
-  margin: 20px 0 0 0; 
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 20px 0; 
   
 }
 .overlay{
-  margin: 20px 10px 0 0; 
+  margin: 10px 10px 0 0; 
   padding: 5px;
   color: black;
   border-radius: 10px;
   background: white;
 }
+
 </style>

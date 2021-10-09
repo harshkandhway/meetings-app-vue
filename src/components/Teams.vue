@@ -31,7 +31,7 @@
                 <!-- @change="emailList(emailIdTemp,index)" -->
                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
               </select>
-              <button class="emails" @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
+              <button class="emails add-button" @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
             </div>
           </div>
         </div>
@@ -43,7 +43,6 @@
           </div>
         </div>
       </div>
-      <span>{{teamsObj}}</span>
       <!-- <AddTeam v-if="add"></AddTeam> -->
       <router-view :teamsObj="this.teamsObj" @updateTeams="updateTeams($event)"></router-view>
       <!-- v-if="addTeam()" -->
@@ -214,6 +213,12 @@ body {
   border-radius: 5px; 
   border: 1px solid lightgray;
   
+}
+.add-button{
+  background: teal;
+  margin-left: 10px;
+  padding: 5px;
+  color: white;
 }
 
 .teams {
