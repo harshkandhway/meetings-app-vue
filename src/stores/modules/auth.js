@@ -22,6 +22,11 @@ const auth={
             state.name = name;
         }
     },
+    getters:{
+        isAuthenticated(state){
+            return !!state.token
+        }
+    },
     actions:{
         login(context,credentials){
             return login(credentials)

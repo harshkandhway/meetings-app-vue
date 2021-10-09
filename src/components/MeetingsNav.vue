@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="hello" v-if="isAuthenticated">
     <nav>
         <div class="mob-nav">
             <div class="nav-button">
@@ -58,6 +58,12 @@
 <script>
 export default {
   name: 'MeetingsNav',
+
+  computed:{
+      isAuthenticated(){
+          return this.$store.getters.isAuthenticated;
+      }
+  },
 
   methods:{
       logOut(){
