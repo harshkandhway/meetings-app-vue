@@ -1,5 +1,5 @@
 import Router from 'vue-router';
-
+import stores from '@/stores'
 import MeetingsCalendar from '@/components/MeetingsCalendar.vue';
 import Teams from '@/components/views/Teams';
 import Signup from '@/components/Signup';
@@ -65,6 +65,21 @@ const router = new Router({
             component: PageNotFound
         }
     ]
+});
+
+router.beforeEach(( to, from, next ) => {
+    if( to.name !== 'Login' && !stores.getters.isAuthenticated ) {
+        return next({
+            name: 'Login'
+        });
+    }
+    else if(to.name=='Login' && stores.getters.isAuthenticated){
+        return next({
+            name: 'MeetingsCalendar'
+        });
+    }
+
+    next();
 });
 
 export default router;

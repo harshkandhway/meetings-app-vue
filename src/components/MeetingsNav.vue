@@ -37,12 +37,12 @@
                     <ul>
                         <div
                             style="height: 43px; display: inline-flex; flex-direction: column; justify-content: center;">
-                            <li>Hello, grdharsh19@gmail.com</li>
+                            <li>Hello, {{email}}</li>
                         </div>
                         <hr class="border-responsive">
                         <span @click="logOut">
                             <div
-                                style="height: 43px; display: inline-flex; flex-direction: column; justify-content: center;">
+                                style="height: 43px; display: inline-flex; flex-direction: column; justify-content: center; cursor:pointer">
 
                                 <li>Logout</li>
 
@@ -63,7 +63,11 @@ export default {
   computed:{
       isAuthenticated(){
           return this.$store.getters.isAuthenticated;
-      }
+      },
+      email() {
+            return this.$store.state.auth.email;
+        },
+
   },
 
   methods:{

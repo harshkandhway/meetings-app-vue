@@ -72,33 +72,27 @@ export default {
   },
   methods: {
     updateTeams(teamsObj) {
-      //    console.log("updateTeams in Teams.vue",teamsNew)
-      //    this.teamsObj = teamsNew
-      //    console.log("updateTeams -> this.teamsObj in Teams.vue",this.teamsObj)
       this.teamsObj = teamsObj;
       this.teams.push(teamsObj)
-      // this.teams.push()
-      // console.log("methods teams data after adding teams",this.teams)
+
       teams().then(data => {
-        // this.teams.push(teamsObj);
+
         this.teams = data;
-        // this.teamsNew = data;
-        console.log("teamsNew", this.teamsObj);
-        console.log("teams", this.teams);
-        console.log("data", data);
+    
+        // console.log("teamsNew", this.teamsObj);
+        // console.log("teams", this.teams);
+        // console.log("data", data);
         let size = this.teams.length;
         for (let i = 0; i < size; i++) {
           this.temp[i] = true;
         }
       });
          this.teamsObj= {}
-      //    console.log("updateTeamsMethod",this.teamsNew)
     },
     excuse(id, index) {
       console.log("excuse me teamsNew", this.teamsNew);
-      //   this.newUpdate1 = this.newUpdate;
+      console.log(index)
       console.log("new update true or false", this.teamsNew);
-      this.temp[index] = false;
       console.log("temp array", this.temp);
       this.teams=this.teams.filter(team=>team._id!==id)
       return axios
@@ -110,11 +104,7 @@ export default {
         .then(res1 => {
           teams().then(data => {
             this.teams = data;
-            let size = this.teams.length;
             console.log(res1.data);
-            for (let i = 0; i < size; i++) {
-              this.temp[i] = true;
-            }
             return data;
           });
         })
@@ -124,8 +114,6 @@ export default {
       if(this.addAttendeeFlag===false){
       console.log("addAttendee meeting id", id);
       console.log("addAttendee email id", userId);
-
-      // this.emailId1 = this.emailId
       return axios
         .patch(
           `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`,null,{headers:{
@@ -148,8 +136,6 @@ export default {
     }
     },
     emailList(emailId, index) {
-      // console.log("emailList aaaa", emailId[index]);
-      // console.log("emailListIndex", index);
       for(let i=0;i<this.teams[index].members.length;i++){
         console.log("for loop ke andar",this.teams[index].members[i].email)
         if(this.teams[index].members[i].email===emailId[index]){
@@ -179,21 +165,11 @@ export default {
   created() {
     teams().then(data => {
       this.teams = data;
-      // this.teamsNew = data;
-      // console.log("teamsNew",this.teamsNew);
-      console.log("created teams data", this.teams);
-      let size = this.teams.length;
-      for (let i = 0; i < size; i++) {
-        this.temp[i] = true;
-      }
     }),
       getUsers().then(data => {
         this.registerdUsers = data;
-
-        // console.log("reges", this.registerdUsers);
       });
 
-    // this.add = false;
   }
 };
 </script>

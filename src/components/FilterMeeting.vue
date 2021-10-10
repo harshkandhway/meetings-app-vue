@@ -29,7 +29,7 @@
         <h1 style="margin: 0;">Meetings matching search criteria</h1>
         <hr />
         <div v-for="(meeting,index) in meetings" :key="index">
-        <div class="matching" v-if="temp[index]">
+        <div class="matching">
           <div class="matching-container">
             <h2 style="margin: 0;">{{meeting.date}}</h2>
             <p style="margin: 10px 0;font-weight: 800;">{{meeting.name}}</p>
@@ -81,7 +81,7 @@ export default {
     return {
       matching: false,
       meetings: [],
-      temp: [],
+      // temp: [],
       period: "All",
       search: "",
       registerdUsers: [],
@@ -91,6 +91,21 @@ export default {
     };
   },
   methods: {
+    dataFilter(){
+          for (let i = 0; i < this.meetings.length; i++) {
+              this.meetings[i].date = moment(this.meetings[i].date.slice(0, 10)).format("Do MMMM YYYY") +
+            "\t" +
+            this.meetings[i].startTime.hours +
+            ":" +
+            this.meetings[i].startTime.minutes +
+            " - " +
+            this.meetings[i].endTime.hours +
+            ":" +
+            this.meetings[i].endTime.minutes;
+              // this.temp[i] = true;
+            }
+            return this.meetings  
+      },
     searched(period) {
       this.period = period;
       this.matching = true;
@@ -101,26 +116,16 @@ export default {
           alert("No meeting Found")
           return
         }
-        let size = this.meetings.length;
-        for (let i = 0; i < size; i++) {
-          this.meetings[i].date =
-            moment(this.meetings[i].date.slice(0, 10)).format("Do MMMM YYYY") +
-            "\t" +
-            this.meetings[i].startTime.hours +
-            ":" +
-            this.meetings[i].startTime.minutes +
-            " - " +
-            this.meetings[i].endTime.hours +
-            ":" +
-            this.meetings[i].endTime.minutes;
-        }
+        this.dataFilter()
       });
     },
     excuse(id, index) {
-      this.temp[index] = false;
-      console.log("temp array", this.temp);
+      // this.temp[index] = false;
+      console.log("index", index);
       console.log("idd", id);
       this.meetings=this.meetings.filter(meeting=>meeting._id!==id)
+      console.log("temp array true false", this.temp);
+      console.log("meetings after filtering",this.meetings)
       return axios
         .patch(
           `https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=remove_attendee`,null,{headers:{
@@ -130,21 +135,10 @@ export default {
         .then(res1 => {
           meetings(this.period, this.search).then(data => {
             this.meetings = data;
-            let size = this.meetings.length;
+            // let size = this.meetings.length;
             console.log(res1.data);
             console.log("excuse", this.meetings);
-            for (let i = 0; i < size; i++) {
-              this.meetings[i].date = moment(this.meetings[i].date.slice(0, 10)).format("Do MMMM YYYY") +
-            "\t" +
-            this.meetings[i].startTime.hours +
-            ":" +
-            this.meetings[i].startTime.minutes +
-            " - " +
-            this.meetings[i].endTime.hours +
-            ":" +
-            this.meetings[i].endTime.minutes;
-              this.temp[i] = true;
-            }
+            this.dataFilter()
             return data;
           });
         })
@@ -162,20 +156,9 @@ export default {
             alert("User Added")
              meetings(this.period, this.search).then(data => {
             this.meetings = data;
-            let size = this.meetings.length;
+            // let size = this.meetings.length;
             console.log("excuse", this.meetings);
-            for (let i = 0; i < size; i++) {
-              this.meetings[i].date = moment(this.meetings[i].date.slice(0, 10)).format("Do MMMM YYYY") +
-            "\t" +
-            this.meetings[i].startTime.hours +
-            ":" +
-            this.meetings[i].startTime.minutes +
-            " - " +
-            this.meetings[i].endTime.hours +
-            ":" +
-            this.meetings[i].endTime.minutes;
-              this.temp[i] = true;
-            }
+            this.dataFilter()
             return data;
           });
         })
@@ -206,20 +189,15 @@ export default {
       let size = this.meetings.length;
       for (let i = 0; i < size; i++) {
         this.meetings[i].date = this.meetings[i].date.slice(0, 10);
-        this.temp[i] = true;
+        // this.temp[i] = true;
       }
       return data
     });
     getUsers().then(data => {
       this.registerdUsers = data;
-      console.log("reges", this.registerdUsers);
+      // console.log("reges", this.registerdUsers);
     });
-  }
-//   computed:{
-//       attendeeTo(){
-//           for(index;index<)
-//       }
-//   }
+  },
 };
 </script>
 

@@ -26,11 +26,11 @@
                 </form>
             </div>
         </div>
-        <!-- <div class="sign_in overlay">
+        <div class="sign_in overlay">
             <router-link to="/signup">
                     <input type="button" value="SIGN UP" class="fbutton overlay-button signup-overlay-button">
             </router-link>
-        </div> -->
+        </div>
         <!-- <div class="sign_up overlay" style="display: none;">
             <a href="index.html">
                 <form action="#">
@@ -45,6 +45,7 @@
 
 <script>
 import {signUp} from '@/services/LoginRequest'
+import {getUsers} from '@/services/meetings';
 export default {
     name:'Signup',
     data(){
@@ -64,12 +65,19 @@ export default {
         }
     },
 
+    
+
     methods:{
         // authentication(){
         //     this.authenticated=true
         //     return this.authenticated
         // },
         signIn(){
+
+            getUsers().then(data=>{
+                console.log(data); 
+            })
+
             this.$store.dispatch('login',this.formLogin)
                 .then(()=>this.$router.push({name:'MeetingsCalendar'}))
                 .catch(error=>{alert(error.message)})
