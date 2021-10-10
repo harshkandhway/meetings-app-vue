@@ -77,7 +77,7 @@ export default {
 }
 
 .container{
-    margin: 0 85px;
+    margin: 0 20px;
     z-index: 0;
 }
 

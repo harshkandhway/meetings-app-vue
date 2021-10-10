@@ -7,11 +7,11 @@
         <hr />
         <label for="name">
         <p>Name</p>
-        <input type="text" name="name" id="name" class="date-selector" v-model="form.name"/>
+        <input type="text" name="name" id="name" class="date-selector" v-model="form.name" required/>
         </label>
         <label for="date-selector">
           <p>Date</p>
-        <input type="date" name="dateSelector" id="date-selector2" class="date-selector" v-model="form.date"/>
+        <input type="date" name="dateSelector" id="date-selector2" class="date-selector" v-model="form.date" required/>
         </label>
 
         <p>Start time (hh:mm)</p>
@@ -34,12 +34,12 @@
         <label for="search-for1">
           <p>Description</p>
         </label>
-        <textarea name="search-for1" id="search-for1" placeholder="What is the agenda of the meeting?" v-model="form.description"/>
+        <textarea name="search-for1" id="search-for1" placeholder="What is the agenda of the meeting?" v-model="form.description" required/>
         <label for="emails">
           <p>EmailIDs of attendees, or team's short</p>
         </label>
         <select name="emails" id="emails" class="emails"
-        v-model="emailId" @change="emailList(emailId)">
+        v-model="emailId" @change="emailList(emailId)" required>
             <!-- <option value="---Select Attendees---" selected>---Select Attendees---</option> -->
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select>
@@ -70,11 +70,11 @@ export default {
   data() {
     return {
       form: {
-        name: "Vue Workshop 16",
-        description: "Web Dev",
+        name: "",
+        description: "",
         date: moment().format('YYYY-MM-DD'),
-        startTime: { hours: 10, minutes: 50 },
-        endTime: { hours: 12, minutes: 30},
+        startTime: { hours: 0, minutes: 0 },
+        endTime: { hours: 0, minutes: 0},
         attendees: []
       },
       registerdUsers: [],
@@ -116,6 +116,12 @@ export default {
     emailList(emailId){
       this.emailId = emailId;
       this.form.attendees.push(this.emailId)
+      console.log("this.form.attendees",this.form.attendees.length)
+      for(let i=0;i<this.form.attendees.length-1;i++){
+        if(this.form.attendees[i]==this.emailId){
+          this.form.attendees.pop()
+        }
+      }
       console.log(this.emailId)
     }
   },

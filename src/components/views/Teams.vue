@@ -31,7 +31,7 @@
                 <!-- @change="emailList(emailIdTemp,index)" -->
                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
               </select>
-              <button class="emails add-button" @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
+              <button class="add-button" @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
             </div>
           </div>
         </div>
@@ -65,7 +65,8 @@ export default {
       registerdUsers: [],
       emailIdTemp: [],
       add: false,
-      username: ""
+      username: "",
+      addAttendeeFlag: false
       // newUpdate1: 444
     };
   },
@@ -99,6 +100,7 @@ export default {
       console.log("new update true or false", this.teamsNew);
       this.temp[index] = false;
       console.log("temp array", this.temp);
+      this.teams=this.teams.filter(team=>team._id!==id)
       return axios
         .patch(
           `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=remove_member`,null,{headers:{
@@ -119,14 +121,14 @@ export default {
         .catch(error => error);
     },
     addAttendee(id, userId) {
+      if(this.addAttendeeFlag===false){
       console.log("addAttendee meeting id", id);
       console.log("addAttendee email id", userId);
 
       // this.emailId1 = this.emailId
       return axios
         .patch(
-          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`,{headers:{
-        'Content-Type': 'application/json',
+          `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=add_member&userId=${userId}`,null,{headers:{
         'Authorization' : localStorage.getItem('token')
     }}
         )
@@ -143,11 +145,20 @@ export default {
           // })
         })
         .catch(error => error);
+    }
     },
     emailList(emailId, index) {
-      console.log("emailList", emailId);
-      console.log("emailListIndex", index);
-      let temp = {
+      // console.log("emailList aaaa", emailId[index]);
+      // console.log("emailListIndex", index);
+      for(let i=0;i<this.teams[index].members.length;i++){
+        console.log("for loop ke andar",this.teams[index].members[i].email)
+        if(this.teams[index].members[i].email===emailId[index]){
+          alert("email already exists")
+          this.addAttendeeFlag = true
+          return
+        }}
+        if(this.addAttendeeFlag==false){
+        let temp = {
         email: emailId[index]
       };
       this.teams[index].members.push(temp);
@@ -158,6 +169,7 @@ export default {
           return userId;
         }
       }
+        }
     },
     addTeam() {
       this.add = true;
@@ -198,6 +210,7 @@ body {
 .container {
   position: relative;
   z-index: 0;
+  
 }
 
 .select-member{
@@ -209,16 +222,21 @@ body {
   
 }
 .emails{
+  display: inline-block;
+  width: 100%;
   height: inherit; 
   border-radius: 5px; 
   border: 1px solid lightgray;
-  
 }
 .add-button{
+  height: inherit; 
   background: teal;
   margin-left: 10px;
   padding: 5px;
   color: white;
+  border-radius: 5px; 
+  border: 1px solid lightgray;
+  width: 70px;
 }
 
 .teams {
@@ -314,7 +332,7 @@ body {
   .add-team-container {
     display: none;
     position: fixed;
-    width: 90%;
+    width: 100%;
     top: 80px;
     margin: auto;
   }
@@ -330,17 +348,59 @@ body {
     flex-wrap: wrap;
     z-index: 0;
   }
+  .team-container {
+  /* flex-wrap: wrap; */
+  display: inline-flex;
+  /* height: fit-content; */
+  /* margin-top: 10px; */
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  flex-direction: column;
+  /* margin-bottom: 10px; */
+  flex-basis: 30%;
+  margin: 20px;
+  min-width: 350px;
+  max-width: 350px;
+  justify-content: center;
+  align-items: center;
+  min-height: 370px;
+}
+.emails{
+  width: 80%;
+  
+}
 
   .add-team-container {
     display: none;
     position: fixed;
-    width: 85%;
+    width: 80%;
     top: 80px;
     margin: auto;
   }
 }
 
 @media (max-width: 320px) {
+  .emails{
+  width: 50%;
+  
+}
+  .team-container {
+  /* flex-wrap: wrap; */
+  display: inline-flex;
+  /* height: fit-content; */
+  /* margin-top: 10px; */
+  border: 2px solid lightgray;
+  border-radius: 5px;
+  flex-direction: column;
+  /* margin-bottom: 10px; */
+  flex-basis: 30%;
+  margin: 20px;
+  min-width: 300px;
+  max-width: 300px;
+  justify-content: center;
+  align-items: center;
+  min-height: 370px;
+}
   .teams {
     position: relative;
     display: flex;
@@ -354,9 +414,9 @@ body {
   .add-team-container {
     display: none;
     position: fixed;
-    width: 75%;
+    width: 100%;
     top: 80px;
-    margin: auto;
+    /* margin: auto; */
   }
 }
 </style>

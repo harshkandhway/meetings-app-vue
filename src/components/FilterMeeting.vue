@@ -28,8 +28,9 @@
       <div v-if="matching">
         <h1 style="margin: 0;">Meetings matching search criteria</h1>
         <hr />
-        <div class="matching" v-for="(meeting,index) in meetings" :key="meeting.id">
-          <div class="matching-container" v-if="temp[index]">
+        <div v-for="(meeting,index) in meetings" :key="index">
+        <div class="matching" v-if="temp[index]">
+          <div class="matching-container">
             <h2 style="margin: 0;">{{meeting.date}}</h2>
             <p style="margin: 10px 0;font-weight: 800;">{{meeting.name}}</p>
             <input
@@ -48,13 +49,18 @@
             <div class="select-member" style="height: 30px; margin: 0;">
               <!-- <input type="text" name="member" id="member" placeholder="Select member"
               style="height: inherit; border-radius: 5px; border: 1px solid lightgray;">-->
-              <select name="member" id="member" class="emails" placeholder="Select member" v-model="emailId[index]" @change="emailList(emailId)">
+              <select name="member" 
+              id="member" class="emails"
+              placeholder="Select member" 
+              v-model="emailId[index]" 
+              @change="emailList(emailId,index)">
                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
               </select>
               <!-- style="height: inherit; border-radius: 5px; outline: none;" -->
-              <button class="emails"  @click="addAttendee(meeting._id,emailList(emailId[index]))">Add</button>
+              <button class="add-button"  @click="addAttendee(meeting._id,emailList(emailId[index],index))">Add</button>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -113,6 +119,8 @@ export default {
     excuse(id, index) {
       this.temp[index] = false;
       console.log("temp array", this.temp);
+      console.log("idd", id);
+      this.meetings=this.meetings.filter(meeting=>meeting._id!==id)
       return axios
         .patch(
           `https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=remove_attendee`,null,{headers:{
@@ -173,8 +181,16 @@ export default {
         })
         .catch(error => error);
     },
-    emailList(emailId){
+    emailList(emailId, index){
+      console.log("indexx",index)
         console.log("emailList",emailId)
+        console.log("meetings list length",this.meetings[index].attendees.length)
+        for(let i=0;i<this.meetings[index].attendees.length;i++){
+          if(this.meetings[index].attendees[i].email==emailId[index]){
+            alert("email already exists")
+            return
+          }
+        }
         for(let i=0;i<this.registerdUsers.length;i++){
             if(emailId==this.registerdUsers[i].email){
                 let userId = this.registerdUsers[i]._id;

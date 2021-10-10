@@ -16,6 +16,7 @@
             style="border: 1px solid white;"
             placeholder="Name"
             v-model="form.name"
+            required
           />
           <label for="id-selector">
             <p>Team id</p>
@@ -28,6 +29,7 @@
             style="border: 1px solid white;"
             placeholder="id"
             v-model="form.shortName"
+            required
           />
 
           <label for="search-for">
@@ -38,13 +40,14 @@
             id="search-for"
             placeholder="Add a Description for the Teams"
             v-model="form.description"
+            required
           ></textarea>
 
           <label for="emails">
             <p>Members</p>
           </label>
           <select name="emails" id="emails" class="date-selector" style="margin-bottom:5px"
-        v-model="emailId" @change="emailList(emailId)">
+        v-model="emailId" @change="emailList(emailId)" required>
             <option v-for="user in registerdUsers" :key="user.id">{{user.email}}</option>
         </select>
         <div class="emails-overlay">
@@ -95,7 +98,7 @@ export default {
         members: []
       },
       registerdUsers: [],
-      emailId: "null",
+      emailId: "",
       // teams: []
       // teamsNew: ""
     };
@@ -122,6 +125,11 @@ export default {
         email: emailId
       }
       this.form.members.push(emailObj)
+      for(let i=0;i<this.form.members.length-1;i++){
+        if(this.form.members[i].email==this.emailId){
+          this.form.members.pop()
+        }
+      }
       console.log("emailList array",this.form.members)
     },
     updateTeams(){
