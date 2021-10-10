@@ -124,8 +124,6 @@ input{
     text-decoration: none;
 }
 
-
-
 .overlay {
     position: absolute;
     background-color: teal;

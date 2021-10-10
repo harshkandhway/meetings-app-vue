@@ -62,6 +62,10 @@ export default {
   margin: 0 80px;
   z-index: 0;
 }
+
+a{
+  text-decoration: none;
+}
 .options {
   border-style: inset;
   border-bottom: 2px solid lightgray;
