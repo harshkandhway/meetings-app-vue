@@ -8,7 +8,7 @@
         <div class="search-and-add">
           
           
-            <router-link to="/meeting/filtermeetings">
+            <router-link to="/meeting/filtermeetings" style="text-decoration:none">
             <label for="outer-design1">
             <div id="search-meeting-container">
               <input type="radio" name="outer" id="outer-design1" class="outer-design1 dis" checked />
@@ -20,7 +20,7 @@
             </router-link>
           
           
-            <router-link to="/meeting/addmeeting">
+            <router-link to="/meeting/addmeeting" style="text-decoration:none">
             <label for="outer-design2">
             <div id="add-meeting-container">
               <input type="radio" name="outer" id="outer-design2" class="outer-design2 dis" />
@@ -63,9 +63,6 @@ export default {
   z-index: 0;
 }
 
-a{
-  text-decoration: none;
-}
 .options {
   border-style: inset;
   border-bottom: 2px solid lightgray;
