@@ -17,7 +17,7 @@
           </div>
           
         </div>
-        <div class="meetings-container" v-for="meeting in meetings" :key="meeting.id">
+        <div class="meetings-container" v-for="(meeting,index) in meetings" :key="index" v-bind:style="{top:(60+2)*meeting.startTime.hours+meeting.startTime.minutes+'px'}">
           <p>{{meeting.name}}</p>
           <hr />
           <p>Attendees : <span v-for="attendee in meeting.attendees" :key="attendee.id">{{attendee.email}}  </span></p>
@@ -92,7 +92,7 @@ h2, h3{
 }
 
 .calendar-hours{
-    height: 50px;
+    height: 60px;
     margin: 2px 0;
     background-color: darkgrey;
 }
@@ -110,9 +110,9 @@ h2, h3{
     display: flex;
     flex-direction: column;
     position:absolute;
-    height: 50px;
+    height: 60px;
     background-color: darkslategrey;
-    top: 300px;
+    /* top: 546px; (50+2)*7+25 */
     width: 98%;
     transform: translate(1%, 0);
     /* padding: 5px 0; */
@@ -131,5 +131,6 @@ h2, h3{
     margin-top: auto;
     margin-bottom: auto;
     color: lightgray;
+    
 }
 </style>
