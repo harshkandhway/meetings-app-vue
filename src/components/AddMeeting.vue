@@ -16,11 +16,11 @@
 
         <p>Start time (hh:mm)</p>
         <select name="start-time" id="start-time1" class="time" v-model="form.startTime.hours">
-          <option v-for="hour in 24" :key="hour">{{hour}}</option>
+          <option v-for="(hour,index) in 24" :key="index">{{hour}}</option>
         </select>
         <span>:</span>
         <select name="start-time" id="start-time2" class="time" v-model="form.startTime.minutes">
-          <option v-for="minute in 60" :key="minute">{{minute}}</option>
+          <option v-for="(minute,index) in 60" :key="index">{{minute}}</option>
         </select>
 
         <p>End Time (hh:mm)</p>
