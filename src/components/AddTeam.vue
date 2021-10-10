@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>AddTeam</h2>
     <div class="add-team-container">
       <div class="add-new-team" id="add-new" style="position: absolute; top: 0; max-width: 500px;">
         <form class="add-new-container search-container" @submit.prevent="updateTeams()">

@@ -13,8 +13,8 @@
             <select name="date-selector" id="date-selector1" class="date-selector" v-model="period">
               <option value="All">All</option>
               <option value="Past">Past</option>
-              <option value="Today">Today</option>
-              <option value="Upcoming">Upcoming</option>
+              <option value="Present">Today</option>
+              <option value="Future">Upcoming</option>
             </select>
             <label for="search-for">
               <p>Search for</p>
@@ -90,6 +90,11 @@ export default {
       this.matching = true;
       meetings(period, this.search).then(data => {
         this.meetings = data;
+        if(this.meetings.length<1){
+          this.matching = false;
+          alert("No meeting Found")
+          return
+        }
         let size = this.meetings.length;
         for (let i = 0; i < size; i++) {
           this.meetings[i].date =
@@ -211,5 +216,15 @@ export default {
     height: inherit; 
     border-radius: 5px; 
     border: 1px solid lightgray;
+}
+
+.search {
+  border: 2px solid lightgray;
+  border-bottom: 8px solid white;
+  border-radius: 4px;
+}
+
+.search span {
+  color: rgb(58, 58, 58);
 }
 </style>

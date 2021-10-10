@@ -6,9 +6,9 @@ const KEY_NAME = 'name';
 
 const auth={
     state:{
-        token: '',
-        email: '',
-        name: ''
+        token: localStorage.getItem( KEY_TOKEN ) || '',
+        email: localStorage.getItem( KEY_EMAIL ) || '',
+        name: localStorage.getItem( KEY_NAME ) || '',
 
     },
     mutations: {

@@ -84,13 +84,34 @@ export default {
 
   methods:{
     postData(){
-      // this.form.attendees.push({email:'harsh@'})
-      console.log(this.form)
+      if(this.form.startTime.hours<=this.form.endTime.hours){
+        if(this.form.startTime.hours==this.form.endTime.hours){
+          if(this.form.startTime.minutes>=this.form.endTime.minutes){
+            alert("Start time cannot be greater than end time")
+            return
+          }
+          else{
       addMeetings(this.form).then(data => {
         alert("Meeting Added, Thank You!")
       console.log("Add Meetings page", data);
       this.form.attendees=[]
     })
+          }
+        }
+         else{
+      addMeetings(this.form).then(data => {
+        alert("Meeting Added, Thank You!")
+      console.log("Add Meetings page", data);
+      this.form.attendees=[]
+    })
+          }
+          
+      // this.form.attendees.push({email:'harsh@'})
+      
+    }
+    else{
+      alert("Start time cannot be greater than end time")
+    }
     },
     emailList(emailId){
       this.emailId = emailId;
@@ -139,6 +160,15 @@ export default {
   color: black;
   border-radius: 10px;
   background: white;
+}
+.add-meeting {
+  border: 2px solid lightgray;
+  border-bottom: 8px solid white;
+  border-radius: 4px;
+}
+
+.add-meeting span {
+  color: rgb(58, 58, 58);
 }
 
 </style>

@@ -1,10 +1,10 @@
 import Router from 'vue-router';
 
 import MeetingsCalendar from '@/components/MeetingsCalendar.vue';
-import Teams from '@/components/Teams';
+import Teams from '@/components/views/Teams';
 import Signup from '@/components/Signup';
-import PageNotFound from '@/components/PageNotFound';
-import Meetings from '@/components/Meetings';
+import PageNotFound from '@/components/views/PageNotFound';
+import Meetings from '@/components/views/Meetings';
 import Login from '@/components/Login';
 import FilterMeetings from '@/components/FilterMeeting';
 import AddTeam from '@/components/AddTeam';

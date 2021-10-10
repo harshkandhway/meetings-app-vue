@@ -6,22 +6,31 @@
       <div class="container-meeting">
         <div class="options"></div>
         <div class="search-and-add">
-          <label for="outer-design1">
+          
+          
+            <router-link to="/meeting/filtermeetings">
+            <label for="outer-design1">
             <div id="search-meeting-container">
               <input type="radio" name="outer" id="outer-design1" class="outer-design1 dis" checked />
               <div class="search">
-                <router-link to="/meeting/filtermeetings">Filter/Search meetings</router-link>
+                <span>Filter/Search meetings</span>
               </div>
             </div>
-          </label>
-          <label for="outer-design2">
+            </label>
+            </router-link>
+          
+          
+            <router-link to="/meeting/addmeeting">
+            <label for="outer-design2">
             <div id="add-meeting-container">
               <input type="radio" name="outer" id="outer-design2" class="outer-design2 dis" />
               <div class="add-meeting">
-                <router-link to="/meeting/addmeeting">Add a meeting</router-link>
+                 <span>Add a meeting</span>
               </div>
             </div>
-          </label>
+            </label>
+            </router-link>
+          
         </div>
       </div>
       <router-view></router-view>
@@ -50,7 +59,7 @@ export default {
 
 <style>
 .container {
-  margin: 0 85px;
+  margin: 0 80px;
   z-index: 0;
 }
 .options {
@@ -98,7 +107,7 @@ export default {
   /* height: 18px; */
 }
 
-.outer-design2:checked + .add-meeting {
+/* .outer-design2:checked + .add-meeting {
   border: 2px solid lightgray;
   border-bottom: 8px solid white;
   border-radius: 4px;
@@ -106,9 +115,9 @@ export default {
 
 .outer-design2:checked + .add-meeting span {
   color: rgb(58, 58, 58);
-}
+} */
 
-.outer-design1:checked + .search {
+/* .outer-design1:checked + .search {
   border: 2px solid lightgray;
   border-bottom: 8px solid white;
   border-radius: 4px;
@@ -116,7 +125,7 @@ export default {
 
 .outer-design1:checked + .search span {
   color: rgb(58, 58, 58);
-}
+} */
 
 .dis {
   display: none;
@@ -204,5 +213,33 @@ textarea {
 
 .search-container-visibility:checked + .search-for-meeting {
   display: none;
+}
+@media (max-width: 450px){
+  .container {
+  margin: 0 20px;
+  z-index: 0;
+}
+}
+
+@media (max-width: 320px){
+  .container {
+  margin: 0 10px;
+  z-index: 0;
+}
+}
+
+@media (max-width: 300px){
+  .container {
+  margin: 0 10px;
+  z-index: 0;
+}
+.search{
+  padding: 5px 0 5px 5px;
+  height: 28px;
+}
+
+/* #search-meeting-container{
+  height: 10px;
+} */
 }
 </style>

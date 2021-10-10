@@ -17,7 +17,11 @@
           </div>
           
         </div>
-        <div class="meetings-container" v-for="(meeting,index) in meetings" :key="index" v-bind:style="{top:(60+2)*meeting.startTime.hours+meeting.startTime.minutes+'px'}">
+        <div class="meetings-container" v-for="(meeting,index) in meetings" :key="index" 
+        v-bind:style="{
+          top:(60+2)*meeting.startTime.hours+meeting.startTime.minutes+'px',
+          height:(meeting.endTime.hours-meeting.startTime.hours)*60+(meeting.endTime.minutes-meeting.startTime.minutes)+'px'
+          }">
           <p>{{meeting.name}}</p>
           <hr />
           <p>Attendees : <span v-for="attendee in meeting.attendees" :key="attendee.id">{{attendee.email}}  </span></p>
@@ -68,9 +72,9 @@ export default {
 </script>
 
 <style scoped>
-/* *{
+*{
     box-sizing: border-box;
-} */
+}
 
 .container{
     margin: 0 85px;
@@ -107,14 +111,15 @@ h2, h3{
 }
 
 .meetings-container{
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     position:absolute;
-    height: 60px;
+    /* height: 60px; */
     background-color: darkslategrey;
     /* top: 546px; (50+2)*7+25 */
     width: 98%;
     transform: translate(1%, 0);
+    /* text-overflow: ellipsis; */
     /* padding: 5px 0; */
 }
 
@@ -125,12 +130,46 @@ h2, h3{
 }
 
 .meetings-container p{
+  
     font-size: smaller;
-    line-height: 1.5px;
+    /* line-height: 1.5px; */
     margin: 0 5px;
     margin-top: auto;
     margin-bottom: auto;
     color: lightgray;
+    white-space: nowrap;
+    overflow: hidden;
+    /* overflow-wrap: initial;  */
+    /* width: 99%; */
+    text-overflow: ellipsis;
     
+    /* text-overflow: ellipsis; */
 }
+
+.meetings-container p:hover{
+  
+    font-size: smaller;
+    /* line-height: 1.5px; */
+    margin: 0 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    color: rgb(247, 247, 247);
+    /* white-space: nowrap; */
+    overflow-y: auto;
+    /* overflow-wrap: initial;  */
+    /* width: 99%; */
+    text-overflow: unset;
+    white-space: pre-line;
+    
+    /* text-overflow: ellipsis; */
+}
+
+/* .meetings-container span{
+  display: inline-block;
+  width: 99%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: aqua;
+} */
 </style>

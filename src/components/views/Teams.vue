@@ -205,7 +205,7 @@ body {
   margin: 0; 
   padding: 5px;
   display: inline-flex;
-  justify-content: start;
+  /* justify-content: start; */
   
 }
 .emails{
