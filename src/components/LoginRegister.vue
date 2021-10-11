@@ -67,7 +67,7 @@
         <div class="overlay" v-bind:style="[signIn, overlayL]" v-if="suo">
           <input
             type="button"
-            value="SIGN UP"
+            value="SIGN IN"
             class="fbutton overlay-button signup-overlay-button"
             @click="signupOverlay"
           />
@@ -76,7 +76,7 @@
         <div class="overlay" v-bind:style="[signIn, overlayR]" v-if="!suo">
           <input
             type="button"
-            value="SIGN IN"
+            value="SIGN UP"
             class="fbutton overlay-button signup-overlay-button"
             @click="signinOverlay"
           />
@@ -149,7 +149,7 @@
         <div class="overlay" v-if="suo">
           <input
             type="button"
-            value="SIGN UP"
+            value="SIGN IN"
             class="fbutton overlay-button signup-overlay-button"
             @click="signupOverlay"
           />
@@ -158,7 +158,7 @@
         <div class="overlay" v-if="!suo">
           <input
             type="button"
-            value="SIGN IN"
+            value="SIGN UP"
             class="fbutton overlay-button signup-overlay-button"
             @click="signinOverlay"
           />
@@ -228,7 +228,7 @@ export default {
     signUp() {
       signUp(this.formRegister)
         .then(data => console.log(data))
-        .catch(error => error);
+        .catch(error => alert(error));
     }
   }
 };

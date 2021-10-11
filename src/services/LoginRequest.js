@@ -23,7 +23,7 @@ function signUp(credentials){
         data: credentials
     }
     return axios(config).then(res=>res.data)
-    .catch(error=>error)
+    .catch(()=>{alert("Invalid password, Please use Uppercase, lowercase and special character")})
 }
 
 export{
