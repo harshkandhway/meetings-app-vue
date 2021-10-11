@@ -6,29 +6,19 @@
       <div class="container-meeting">
         <div class="options"></div>
         <div class="search-and-add">
-          
-          
             <router-link to="/meeting/filtermeetings" style="text-decoration:none">
-            <label for="outer-design1">
-            <div id="search-meeting-container">
-              <input type="radio" name="outer" id="outer-design1" class="outer-design1 dis" checked />
-              <div class="search">
+            <div id="search-meeting-container" @click="changeDesign1">
+              <div class="search" v-bind:style="border1">
                 <span>Filter/Search meetings</span>
               </div>
             </div>
-            </label>
             </router-link>
-          
-          
             <router-link to="/meeting/addmeeting" style="text-decoration:none">
-            <label for="outer-design2">
-            <div id="add-meeting-container">
-              <input type="radio" name="outer" id="outer-design2" class="outer-design2 dis" />
-              <div class="add-meeting">
+            <div id="add-meeting-container" @click="changeDesign2">
+              <div class="add-meeting" v-bind:style="border2">
                  <span>Add a meeting</span>
               </div>
             </div>
-            </label>
             </router-link>
           
         </div>
@@ -40,19 +30,49 @@
 
 
 <script>
-// import Meetings from '@/components/FilterMeeting'
-// import { getUsers, meetings } from "@/services/meetings.js";
 export default {
   created() {
     this.$router.push({
       name: "FilterMeeting",
       query: {
-        // hack for initial loaded params to be different to avoid NavigationDuplicated error
         errorBust: Math.random()
           .toString()
           .substr(2)
       }
     });
+  },
+  data(){
+    return{
+    border1:{
+      border: '2px solid lightgray',
+      borderBottom: '8px solid white',
+      borderRadius: '4px'
+    },
+    border2:{
+      border: '',
+      borderBottom: '',
+      borderRadius: ''
+    }
+    
+    }
+  },
+  methods:{
+    changeDesign2(){
+      this.border1.border= ''
+      this.border1.borderBottom = ''
+      this.border1.borderRadius = ''
+      this.border2.border= '2px solid lightgray'
+      this.border2.borderBottom = '8px solid white'
+      this.border2.borderRadius = '4px'
+    },
+    changeDesign1(){
+      this.border2.border= ''
+      this.border2.borderBottom = ''
+      this.border2.borderRadius = ''
+      this.border1.border= '2px solid lightgray'
+      this.border1.borderBottom = '8px solid white'
+      this.border1.borderRadius = '4px'
+    }
   }
 };
 </script>
@@ -215,9 +235,9 @@ textarea {
 .search-container-visibility:checked + .search-for-meeting {
   display: none;
 }
-@media (max-width: 450px){
+@media (max-width: 500px){
   .container {
-  margin: 0 20px;
+  margin: 0 25px;
   z-index: 0;
 }
 }
