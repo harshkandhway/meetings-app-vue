@@ -52,6 +52,7 @@
 
 
 <script>
+import Vue from 'vue';
 import { teams } from "@/services/teams.js";
 import { getUsers } from "@/services/meetings";
 import axios from "axios";
@@ -89,6 +90,11 @@ export default {
       console.log("new update true or false", this.teamsNew);
       console.log("temp array", this.temp);
       this.teams=this.teams.filter(team=>team._id!==id)
+      Vue.$toast.open({
+                  message: "You have been excused from the team!",
+                  duration: 3000,
+                  type: 'success',
+                })
       return axios
         .patch(
           `https://mymeetingsapp.herokuapp.com/api/teams/${id}?action=remove_member`,null,{headers:{
@@ -116,7 +122,11 @@ export default {
         )
         .then(res => {
           console.log(res.data);
-          alert("User Added");
+          Vue.$toast.open({
+                  message: "Attendee has been added to the team!",
+                  duration: 3000,
+                  type: 'success',
+                });
         })
         .catch(error => error);
     }

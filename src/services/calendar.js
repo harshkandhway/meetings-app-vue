@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue';
 // // import AppConfig from '@/config' 
 // axios.defaults.headers['Authorization'] = localStorage.getItem('AppConfig.token');
 
@@ -21,9 +22,12 @@ function calendar(credendial){
         'Authorization' : localStorage.getItem('token')
     }})
     .then((res)=>{
-        
         return res.data
-    }).catch((error)=>error)
+    }).catch((error)=>Vue.$toast.open({
+        message: error,
+        duration: 3000,
+        type: 'error',
+      }))
 }
 
 

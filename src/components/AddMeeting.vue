@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { addMeetings, getUsers } from "@/services/meetings.js";
 //
 // import axios from 'axios'
@@ -118,18 +119,32 @@ export default {
       if (parseInt(this.form.startTime.hours) <= parseInt(this.form.endTime.hours)) {
         if (parseInt(this.form.startTime.hours) === parseInt(this.form.endTime.hours)) {
           if (parseInt(this.form.startTime.minutes) >= parseInt(this.form.endTime.minutes)) {
-            alert("Start time cannot be greater than end time 1");
+           
+            Vue.$toast.open({
+                  message: "Start time cannot be greater than end time",
+                  duration: 3000,
+                  type: 'error',
+                })
             return;
           } else {
             addMeetings(this.form).then(data => {
-              alert("Meeting Added, Thank You!");
+             
+              Vue.$toast.open({
+                  message: "Meeting Added, Thank You!",
+                  duration: 3000,
+                  type: 'success',
+                })
               console.log("Add Meetings page", data);
               this.form.attendees = [];
             });
           }
         } else {
           addMeetings(this.form).then(data => {
-            alert("Meeting Added, Thank You!");
+            Vue.$toast.open({
+                  message: "Meeting Added, Thank You!",
+                  duration: 3000,
+                  type: 'success',
+                })
             console.log("Add Meetings page", data);
             this.form.attendees = [];
           });
@@ -138,7 +153,11 @@ export default {
         console.log(this.form.startTime.hours)
         console.log(this.form.endTime.hours)
 
-        alert("Start time cannot be greater than end time 2");
+        Vue.$toast.open({
+                  message: "Start time cannot be greater than end time",
+                  duration: 3000,
+                  type: 'error',
+                })
       }
       // this.form = {}
     },
@@ -149,6 +168,11 @@ export default {
       for (let i = 0; i < this.form.attendees.length - 1; i++) {
         if (this.form.attendees[i] == this.emailId) {
           this.form.attendees.pop();
+          Vue.$toast.open({
+                  message: "Email is already selected!",
+                  duration: 3000,
+                  type: 'info',
+                })
         }
       }
       console.log(this.emailId);

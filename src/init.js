@@ -1,3 +1,4 @@
+import '@/plugins'
 import 'normalize.css'
 import '@fortawesome/fontawesome-free/css/all.css';
 import Router from 'vue-router';
@@ -5,8 +6,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VueMq from 'vue-mq'
 
+
 Vue.use( Router );
 Vue.use( Vuex );
+
 Vue.use(VueMq, {
     breakpoints: {
       mobile: 768,
@@ -14,4 +17,5 @@ Vue.use(VueMq, {
       laptop: 1250,
       desktop: Infinity,
     }
-  })
+  });
+//   Vue.use( VueToast );

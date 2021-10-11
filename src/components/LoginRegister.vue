@@ -169,6 +169,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { signUp } from "@/services/LoginRequest";
 // import { getUsers } from "@/services/meetings";
 // import SignupView from '@/components/SignupView';
@@ -227,9 +228,17 @@ export default {
     signUp() {
       signUp(this.formRegister)
         .then(data =>{
-          alert("Success! Please Login")
+          Vue.$toast.open({
+                  message: "Success! Please Login",
+                  duration: 3000,
+                  type: 'success',
+                })
           console.log(data)} )
-        .catch(error => alert(error));
+        .catch(() => Vue.$toast.open({
+                  message: "Error while signing up!",
+                  duration: 3000,
+                  type: 'error',
+                }));
     }
   }
 };

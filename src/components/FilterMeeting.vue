@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import axios from "axios";
 import { getUsers, meetings } from "@/services/meetings.js";
 // import AppConfig from "@/config";
@@ -113,7 +114,12 @@ export default {
         this.meetings = data;
         if(this.meetings.length<1){
           this.matching = false;
-          alert("No meeting Found")
+        
+          Vue.$toast.open({
+                  message: "Sorry, No meeting Found",
+                  duration: 3000,
+                  type: 'info',
+                })
           return
         }
         this.dataFilter()
@@ -145,15 +151,16 @@ export default {
         .catch(error => error);
     },
     addAttendee(id,userId){
-        // console.log("addAttendee meeting id",id)
-        // console.log("addAttendee email id",userId)
-        // this.emailId1 = this.emailId
         return axios.patch(`https://mymeetingsapp.herokuapp.com/api/meetings/${id}?action=add_attendee&userId=${userId}`,null,{headers:{
         'Authorization' : localStorage.getItem('token')
     }})
         .then(res=>{
             console.log(res.data)
-            alert("User Added")
+            Vue.$toast.open({
+                  message: "Attendee has been added to the meeting!",
+                  duration: 3000,
+                  type: 'info',
+                })
              meetings(this.period, this.search).then(data => {
             this.meetings = data;
             // let size = this.meetings.length;
@@ -167,7 +174,12 @@ export default {
     emailList(emailId, index){
         for(let i=0;i<this.meetings[index].attendees.length;i++){
           if(this.meetings[index].attendees[i].email==emailId[index]){
-            alert("email already exists")
+            
+            Vue.$toast.open({
+                  message: "Email already exists",
+                  duration: 3000,
+                  type: 'error',
+                })
             return
           }
         }

@@ -69,7 +69,7 @@
 
 
 <script>
-
+import Vue from 'vue'
 import {addTeam} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
 export default {
@@ -101,6 +101,11 @@ export default {
       for(let i=0;i<this.form.members.length-1;i++){
         if(this.form.members[i].email==this.emailId){
           this.form.members.pop()
+          Vue.$toast.open({
+                  message: "Email is already selected!",
+                  duration: 3000,
+                  type: 'info',
+                })
         }
       }
     },

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Vue from 'vue';
 // import AppConfig from '@/config' 
 // import { config } from 'vue/types/umd';
 // axios.defaults.headers.common['Authorization'] = AppConfig.token;
@@ -13,7 +14,11 @@ function login(credentials){
         data: credentials
     }
     return axios(config).then((res)=>res.data)
-    .catch(()=>alert("Invalid Login or password"))
+    .catch(()=>Vue.$toast.open({
+        message: "Invalid login id or password",
+        duration: 3000,
+        type: 'error',
+      }))
 }
 
 function signUp(credentials){
@@ -23,7 +28,12 @@ function signUp(credentials){
         data: credentials
     }
     return axios(config).then(res=>res.data)
-    .catch(()=>{alert("Invalid password, Please use Uppercase, lowercase and special character")
+    .catch(()=>{
+    Vue.$toast.open({
+        message: "Invalid password, Please use Uppercase, lowercase and special character",
+        duration: 8000,
+        type: 'error',
+      })
                 return
             })
 }
