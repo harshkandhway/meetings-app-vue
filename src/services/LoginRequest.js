@@ -13,7 +13,7 @@ function login(credentials){
         data: credentials
     }
     return axios(config).then((res)=>res.data)
-    .catch(error=>error)
+    .catch(()=>alert("Invalid Login or password"))
 }
 
 function signUp(credentials){
@@ -23,7 +23,9 @@ function signUp(credentials){
         data: credentials
     }
     return axios(config).then(res=>res.data)
-    .catch(()=>{alert("Invalid password, Please use Uppercase, lowercase and special character")})
+    .catch(()=>{alert("Invalid password, Please use Uppercase, lowercase and special character")
+                return
+            })
 }
 
 export{

@@ -220,14 +220,15 @@ export default {
             this.$router.push({ name: "MeetingsCalendar" });
         })
         .catch(error => {
-          alert("Invalid Login or password");
           console.log(error);
           console.log("is auth", this.$store.getters.isAuthenticated);
         });
     },
     signUp() {
       signUp(this.formRegister)
-        .then(data => console.log(data))
+        .then(data =>{
+          alert("Success! Please Login")
+          console.log(data)} )
         .catch(error => alert(error));
     }
   }

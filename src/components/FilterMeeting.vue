@@ -165,9 +165,6 @@ export default {
         .catch(error => error);
     },
     emailList(emailId, index){
-      console.log("indexx",index)
-        console.log("emailList",emailId)
-        console.log("meetings list length",this.meetings[index].attendees.length)
         for(let i=0;i<this.meetings[index].attendees.length;i++){
           if(this.meetings[index].attendees[i].email==emailId[index]){
             alert("email already exists")
@@ -205,8 +202,19 @@ export default {
 .select-user{
     color:aqua;
 }
+.add-button{
+  height: inherit; 
+  background: teal;
+  margin-left: 10px;
+  padding: 5px;
+  color: white;
+  border-radius: 5px; 
+  border: 1px solid lightgray;
+  width: 70px;
+}
 
 .emails{
+    display: inline-block;
     height: inherit; 
     border-radius: 5px; 
     border: 1px solid lightgray;
@@ -220,5 +228,15 @@ export default {
 
 .search span {
   color: rgb(58, 58, 58);
+}
+
+@media (max-width: 600px){
+  .emails{
+    display: inline-block;
+    width: 50%;
+    height: inherit; 
+    border-radius: 5px; 
+    border: 1px solid lightgray;
+}
 }
 </style>
