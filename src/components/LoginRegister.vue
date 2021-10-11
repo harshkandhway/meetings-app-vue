@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="my-m container" v-if="$mq === 'desktop'">
+    <div class="my-m container" v-if="$mq === 'desktop'||$mq === 'laptop'">
       <div class="sign-in-container">
         <h1>Sign in</h1>
         <div class="sign-in-form">
@@ -145,7 +145,7 @@
           </form>
         </div>
       </div>
-      <div v-if="$mq === 'mobile'">
+      <div>
         <div class="overlay" v-if="suo">
           <input
             type="button"

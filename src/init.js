@@ -9,8 +9,8 @@ Vue.use( Router );
 Vue.use( Vuex );
 Vue.use(VueMq, {
     breakpoints: {
-      mobile: 450,
-      tablet: 900,
+      mobile: 768,
+      tablet: 768,
       laptop: 1250,
       desktop: Infinity,
     }
