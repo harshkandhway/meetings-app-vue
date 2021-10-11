@@ -21,7 +21,7 @@
             </label>
             <textarea name="search-for" id="search-for" placeholder="Search using words which describe the meeting" v-model="search"
             ></textarea>
-            <input type="button" value="Search" class="fbutton my-m" v-on:click="searched(period)" />
+            <input type="button" value="Search" class="fbutton my-m" style="cursor: pointer" v-on:click="searched(period)" />
           </div>
         </div>
       </form>
@@ -37,7 +37,7 @@
               type="button"
               value="Excuse yourself"
               class="fbutton my-m"
-              
+              style="cursor: pointer"
               v-on:click="excuse(meeting._id,index)"
             />
             <!-- style="margin: 0;background-color: crimson; border: 1px solid crimson" -->
@@ -56,8 +56,7 @@
               @change="emailList(emailId,index)">
                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
               </select>
-              <!-- style="height: inherit; border-radius: 5px; outline: none;" -->
-              <button class="add-button"  @click="addAttendee(meeting._id,emailList(emailId[index],index))">Add</button>
+              <button class="add-button" style="cursor: pointer"  @click="addAttendee(meeting._id,emailList(emailId[index],index))">Add</button>
             </div>
           </div>
         </div>

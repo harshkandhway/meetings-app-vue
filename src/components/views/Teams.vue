@@ -13,6 +13,7 @@
               type="button"
               value="Excuse yourself"
               class="fbutton my-m"
+              style="cursor: pointer"
               @click="excuse(team._id)"
             />
             <hr />
@@ -31,7 +32,7 @@
                 <!-- @change="emailList(emailIdTemp,index)" -->
                 <option v-for="(user,index) in registerdUsers" :key="index">{{user.email}}</option>
               </select>
-              <button class="add-button" @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
+              <button class="add-button" style="cursor: pointer" @click="addAttendee(team._id,emailList(emailIdTemp,index))">Add</button>
             </div>
           </div>
         </div>
