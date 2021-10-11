@@ -72,12 +72,12 @@ export default {
 </script>
 
 <style scoped>
-*{
+/* *{
     box-sizing: border-box;
-}
+} */
 
 .container{
-    margin: 0 20px;
+    margin: 0 80px;
     z-index: 0;
 }
 
@@ -172,4 +172,10 @@ h2, h3{
   text-overflow: ellipsis;
   color: aqua;
 } */
+@media (max-width: 500px){
+.container{
+    margin: 0 25px;
+    z-index: 0;
+}
+}
 </style>

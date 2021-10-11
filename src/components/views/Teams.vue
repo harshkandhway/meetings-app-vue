@@ -61,13 +61,11 @@ export default {
     return {
       teams: [],
       teamsObj: {},
-      temp: [],
       registerdUsers: [],
       emailIdTemp: [],
       add: false,
       username: "",
       addAttendeeFlag: false
-      // newUpdate1: 444
     };
   },
   methods: {
@@ -78,10 +76,6 @@ export default {
       teams().then(data => {
 
         this.teams = data;
-    
-        // console.log("teamsNew", this.teamsObj);
-        // console.log("teams", this.teams);
-        // console.log("data", data);
         let size = this.teams.length;
         for (let i = 0; i < size; i++) {
           this.temp[i] = true;
@@ -123,23 +117,15 @@ export default {
         .then(res => {
           console.log(res.data);
           alert("User Added");
-          //     teams().then(data=>{
-          //     this.teams = data;
-          //     console.log(data);
-          //     let size = this.teams.length;
-          //     for (let i = 0; i < size; i++) {
-          //       this.temp[i] = true;
-          //     }
-          // })
         })
         .catch(error => error);
     }
     },
     emailList(emailId, index) {
       for(let i=0;i<this.teams[index].members.length;i++){
-        console.log("for loop ke andar",this.teams[index].members[i].email)
+        // console.log("for loop ke andar",this.teams[index].members[i].email)
         if(this.teams[index].members[i].email===emailId[index]){
-          alert("email already exists")
+          alert("Email already exists!")
           this.addAttendeeFlag = true
           return
         }}

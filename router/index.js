@@ -2,7 +2,7 @@ import Router from 'vue-router';
 import stores from '@/stores'
 import MeetingsCalendar from '@/components/MeetingsCalendar.vue';
 import Teams from '@/components/views/Teams';
-import Signup from '@/components/Signup';
+// import LoginRegister from '@/components/LoginRegister';
 import PageNotFound from '@/components/views/PageNotFound';
 import Meetings from '@/components/views/Meetings';
 import Login from '@/components/Login';
@@ -55,11 +55,6 @@ const router = new Router({
             component: Login
         },
         {
-            name: 'Signup',
-            path: '/signup',
-            component: Signup
-        },
-        {
             name: 'PageNotFound',
             path: '*',
             component: PageNotFound
@@ -78,7 +73,6 @@ router.beforeEach(( to, from, next ) => {
             name: 'MeetingsCalendar'
         });
     }
-
     next();
 });
 

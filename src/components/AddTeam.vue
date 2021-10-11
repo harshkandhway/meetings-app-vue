@@ -69,21 +69,12 @@
 
 
 <script>
-// import {addTeam} from '@/components/Teams'
-// import Teams from '@/components/Teams'
-// import {teams} from '@/services/teams.js'
+
 import {addTeam} from '@/services/teams.js'
 import {getUsers} from '@/services/meetings'
-// import VueToast from 'vue-toast-notification';
 export default {
-  // props:{
-  //   teamsNew:Array
-  // },
   name:"AddTeam",
   props:{
-        // teamsNew:{
-        //     type: String,
-        // },
         teamsObj:{
           type:Object,
           
@@ -99,28 +90,10 @@ export default {
       },
       registerdUsers: [],
       emailId: "",
-      // teams: []
-      // teamsNew: ""
     };
   },
- 
-  // components:{
-  //   Teams : Teams
-  // },
   methods: {
-    //   postData(){
-    //   // this.form.attendees.push({email:'harsh@'})
-    //   console.log("Add team postData",this.form)
-    //   addTeam(this.form).then(data => {
-    //   // this.form = data
-    //   // alert("team added")
-    //   // this.updateTeams()
-    //   console.log("Add Teams Page", data);
-    // })
-    // },
     emailList(emailId){
-      // console.log("printing teamsNew in emailList",this.teamsNew)
-      console.log(emailId)
       let emailObj ={
         email: emailId
       }
@@ -130,25 +103,18 @@ export default {
           this.form.members.pop()
         }
       }
-      console.log("emailList array",this.form.members)
     },
     updateTeams(){
       addTeam(this.form).then(data => {
-      // this.form = data
-      // alert("team added")
-      // this.updateTeams()
       console.log("Add Teams Page", data);
       this.$emit("updateTeams",this.form);
-      // app.$toast.open('You did it!');
-      this.form.members=[]
-      console.log(this.teamsNew);
+      this.form.members=[];
     })
     }
   },
   created(){
         getUsers().then(data=>{
         this.registerdUsers = data;
-        // console.log("reges",this.registerdUsers)
     })
   }
 };
