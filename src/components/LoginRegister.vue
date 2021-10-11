@@ -24,7 +24,6 @@
               autocomplete="on"
             />
             <div v-if="isAuthenticated">Invalid login id or password</div>
-            <a href="#" class="forget-pass my-s">Forgot your password ?</a>
             <input type="submit" value="SIGN IN" class="fbutton my-m" />
           </form>
         </div>
@@ -40,6 +39,7 @@
               placeholder="Name"
               class="fdetail"
               v-model="formRegister.name"
+              required
             />
             <input
               type="email"
@@ -47,6 +47,7 @@
               class="fdetail"
               placeholder="Email"
               v-model="formRegister.email"
+              required
             />
             <input
               type="password"
@@ -55,10 +56,9 @@
               placeholder="Password"
               autocomplete="on"
               v-model="formRegister.password"
+              required
             />
             <!-- <input type="password" name="fconfirm" class="fdetail" placeholder="Confirm Password" autocomplete="on"> -->
-
-            <a href="#" class="forget-pass my-m">Forgot your password?</a>
             <input type="submit" value="SIGN UP" class="fbutton my-m" />
           </form>
         </div>
@@ -107,7 +107,6 @@
               autocomplete="on"
             />
             <div v-if="isAuthenticated">Invalid login id or password</div>
-            <a href="#" class="forget-pass my-s">Forgot your password ?</a>
             <input type="submit" value="SIGN IN" class="fbutton my-m" />
           </form>
         </div>
@@ -122,6 +121,7 @@
               placeholder="Name"
               class="fdetail"
               v-model="formRegister.name"
+              required
             />
             <input
               type="email"
@@ -129,6 +129,7 @@
               class="fdetail"
               placeholder="Email"
               v-model="formRegister.email"
+              required
             />
             <input
               type="password"
@@ -137,10 +138,9 @@
               placeholder="Password"
               autocomplete="on"
               v-model="formRegister.password"
+              required
             />
             <!-- <input type="password" name="fconfirm" class="fdetail" placeholder="Confirm Password" autocomplete="on"> -->
-
-            <a href="#" class="forget-pass my-m">Forgot your password?</a>
             <input type="submit" value="SIGN UP" class="fbutton my-m" />
           </form>
         </div>
