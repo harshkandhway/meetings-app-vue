@@ -129,6 +129,11 @@ export default {
       console.log("index", index);
       console.log("idd", id);
       this.meetings=this.meetings.filter(meeting=>meeting._id!==id)
+      Vue.$toast.open({
+                  message: "You have been excluded from the meeting!",
+                  duration: 3000,
+                  type: 'success',
+                })
       console.log("temp array true false", this.temp);
       console.log("meetings after filtering",this.meetings)
       return axios
