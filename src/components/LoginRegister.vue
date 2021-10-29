@@ -234,11 +234,7 @@ export default {
                   type: 'success',
                 })
           console.log(data)} )
-        .catch(() => Vue.$toast.open({
-                  message: "Error while signing up!",
-                  duration: 3000,
-                  type: 'error',
-                }));
+        .catch((error) => error );
     }
   }
 };

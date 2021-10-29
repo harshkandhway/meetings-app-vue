@@ -118,6 +118,7 @@ export default {
     }
   },
   created(){
+    console.log("teamobj",this.teamsObj);
         getUsers().then(data=>{
         this.registerdUsers = data;
     })
